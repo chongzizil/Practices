@@ -7,65 +7,57 @@ import com.zil.li.datastructure.ListNode;
  */
 public class ReorderList {
   public void reorderList(ListNode head) {
-    ListNode curr = new ListNode(0);
-    ListNode left = head;
-    ListNode right;
-    ListNode mid;
-
-    if (head == null) {
+    if (head == null || head.next == null) {
       return;
     }
 
-    mid = getMiddleNode(head);
+    ListNode dummy = new ListNode(0);
+    ListNode curr = dummy;
 
-    right = reverseNode(mid.next);
-
+    ListNode l = head;
+    ListNode mid = getMiddle(head);
+    ListNode r = reverse(mid.next);
     mid.next = null;
 
-    while (left != null && right != null) {
-      curr.next = left;
+    while (l != null && r != null) {
+      curr.next = l;
+      l = l.next;
       curr = curr.next;
-      left = left.next;
-      curr.next = right;
+
+      curr.next = r;
+      r = r.next;
       curr = curr.next;
-      right = right.next;
     }
 
-    while (left != null) {
-      curr.next = left;
-      curr = curr.next;
-      left = left.next;
+    // Left part will have the same number or one more node than the right part.
+    if (l != null) {
+      curr.next = l;
     }
   }
 
-  private ListNode getMiddleNode(ListNode head) {
+  // Return the middle node, which is the last node of the left part
+  private ListNode getMiddle(ListNode head) {
     ListNode slow = head;
-    ListNode fast = head;
+    ListNode fast = head.next;
 
     while (fast != null && fast.next != null) {
-      slow = slow.next;
       fast = fast.next.next;
+      slow = slow.next;
     }
 
     return slow;
   }
 
-  private ListNode reverseNode(ListNode head) {
-    if (head == null) {
-      return head;
-    }
-
+  private ListNode reverse(ListNode head) {
     ListNode dummy = new ListNode(0);
     dummy.next = head;
     ListNode curr = head;
-
     while (curr.next != null) {
       ListNode next = curr.next;
       curr.next = next.next;
       next.next = dummy.next;
       dummy.next = next;
     }
-
     return dummy.next;
   }
 }

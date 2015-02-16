@@ -4,6 +4,8 @@ import com.zil.li.datastructure.ListNode;
 
 /**
  * Created by youlongli on 2/15/15.
+ *
+ * https://oj.leetcode.com/problems/add-two-numbers/
  */
 public class AddTwoNumbers {
   public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
@@ -48,7 +50,6 @@ public class AddTwoNumbers {
     if (carry != 0) {
       ListNode node = new ListNode(carry);
       curr.next = node;
-      curr = curr.next;
     }
 
     return dummy.next;

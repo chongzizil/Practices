@@ -12,6 +12,7 @@ public class SortList {
   }
 
   private ListNode mergeSort(ListNode head) {
+    // Return null if the list is null or the list only has one node
     if (head == null || head.next == null) {
       return head;
     }

@@ -14,12 +14,8 @@ public class ImplementStrStr {
    * Runtime: 440 ms
    */
   public int solutionA(String haystack, String needle) {
-    if (haystack.length() == 0) {
-      return needle.length() == 0 ? 0 : -1;
-    }
-
-    if (needle.length() == 0) {
-      return 0;
+    if (haystack == null || needle == null) {
+      return -1;
     }
 
     for (int i = 0; i < haystack.length() - needle.length() + 1; i++) {

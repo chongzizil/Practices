@@ -3,6 +3,8 @@ package com.zil.li.array;
 /**
  * Created by youlongli on 12/30/14.
  *
+ * https://oj.leetcode.com/problems/two-sum-ii-input-array-is-sorted/
+ *
  * This is a easy one... No comment...
  */
 public class TwoSumII {
@@ -46,16 +48,16 @@ public class TwoSumII {
    * Space complexity: O(1)
    */
   public int[] solutionB(int[] numbers, int target) {
-    int low = 0;
-    int high = numbers.length - 1;
-    while (low < high) {
-      int sum = numbers[low] + numbers[high];
-      if (sum < target) {
-        low++;
-      } else if (sum > target) {
-        high--;
+    int l = 0;
+    int r = numbers.length - 1;
+    while (l < r) {
+      int sum = numbers[l] + numbers[r];
+      if (sum > target) {
+        r--;
+      } else if (sum < target) {
+        l++;
       } else {
-        return new int[]{low + 1, high + 1};
+        return new int[]{l + 1, r + 1};
       }
     }
 

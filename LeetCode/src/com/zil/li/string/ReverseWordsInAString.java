@@ -71,6 +71,8 @@ public class ReverseWordsInAString {
    * Time complexity: O(n)
    * Space complexity: O(n)
    * Runtime: 392 ms
+   *
+   * Be careful of corner case such as empty string.
    */
   public String solutionC(String s) {
     StringBuilder sb = new StringBuilder();

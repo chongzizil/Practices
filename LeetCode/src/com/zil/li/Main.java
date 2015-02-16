@@ -1,44 +1,37 @@
 package com.zil.li;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.zil.li.DP.UniqueBinarySearchTrees;
+import com.zil.li.datastructure.ListNode;
+import com.zil.li.datastructure.TreeNode;
+import com.zil.li.template.LinkedList;
+
+import java.io.IOException;
 
 /**
  * Created by youlongli on 12/30/14.
  */
 public class Main {
-  public static void main(String[] args) {
-    reverseWords(" 1");
-  }
+  public static void main(String[] args) throws IOException {
 
-  public static String reverseWords(String s) {
-    StringBuilder sb = new StringBuilder();
-    List<String> words = new ArrayList<>();
+    UniqueBinarySearchTrees test = new UniqueBinarySearchTrees();
+    long start = System.currentTimeMillis();
+    test.solutionA(200000);
+    System.out.println(System.currentTimeMillis() - start);
+    start = System.currentTimeMillis();
+    test.solutionB(200000);
+    System.out.println(System.currentTimeMillis() - start);
 
-    for (int i = 0; i < s.length(); i++) {
-      char c = s.charAt(i);
-      if (Character.isLetter(c)) {
-        sb.append(c);
-      } else if (sb.length() > 0) {
-        words.add(sb.toString());
-        sb.setLength(0);
-      }
-    }
-
-    if (sb.length() > 0) {
-      words.add(sb.toString());
-      sb.setLength(0);
-    }
-
-    for (int i = words.size() - 1; i >= 0; i--) {
-      sb.append(words.get(i));
-      sb.append(" ");
-    }
-
-    if (sb.length() > 0) {
-      sb.setLength(sb.length() - 1);
-    }
-
-    return sb.toString();
+//    File dir = new File("D:\\BaiduYunDownload\\同人 01.30");
+//    File[] comics = dir.listFiles();
+//    for (File comic: comics) {
+//      File[] subDirs = comic.listFiles();
+//      File[] images = subDirs[0].listFiles();
+//      for (File image : images) {
+//        Path src = FileSystems.getDefault().getPath(image.getPath());
+//        Path tar = FileSystems.getDefault().getPath(comic.getPath() + "\\" + image.getName());
+//        Files.move(src, tar);
+//      }
+//      subDirs[0].delete();
+//    }
   }
 }

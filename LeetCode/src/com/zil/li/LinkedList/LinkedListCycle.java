@@ -16,7 +16,8 @@ public class LinkedListCycle {
       fast = fast.next.next;
       slow = slow.next;
 
-      if (fast == slow) {
+      // I think instead of fast == slow, this should be more proper... (equals() can not pass the cases...)
+      if (fast != null && fast.val == slow.val) {
         return true;
       }
     }

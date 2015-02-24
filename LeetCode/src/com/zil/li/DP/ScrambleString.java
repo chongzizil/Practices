@@ -19,43 +19,43 @@ public class ScrambleString {
     for (int i = 0; i < n; i++) {
       for (int j = 0; j < n; j++) {
         for (int k = 0; k < n; k++) {
+          // Initial setting
           dp[i][j][k] = -1;
         }
       }
     }
 
-    return helper(s1, 0, s2, 0, n, dp);
+    return check(s1, 0, s2, 0, dp, n);
   }
 
-  // len is the length of the string, since s1 and s2 are originals...
-  private boolean helper(String s1, int index1, String s2, int index2, int len, int[][][] dp) {
+  private boolean check(String s1, int index1, String s2, int index2, int[][][] dp, int len) {
     if (len == 1) {
       return s1.charAt(index1) == s2.charAt(index2);
     }
 
+    // Be careful... Use len - 1 instead of len!
     int res = dp[index1][index2][len - 1];
     if (res != -1) {
+      // true: 1
       return res == 1;
     }
 
     res = 0;
-
     for (int i = 1; i < len; i++) {
-      // Check s1 left & s2 left, s1 right & s2 right
-      if (helper(s1, index1, s2, index2, i, dp)
-          && helper(s1, index1 + i, s2, index2 + i, len - i, dp)) {
+      if (check(s1, index1, s2, index2, dp, i)
+          && check(s1, index1 + i, s2, index2 + i, dp, len - i)) {
         res = 1;
         break;
       }
 
-      // Check s1 left & s2 right, s1 right & s2 left
-      if (helper(s1, index1, s2, index2 + len - i, i, dp)
-          && helper(s1, index1 + i, s2, index2, len - i, dp)) {
+      if (check(s1, index1, s2, index2 + len - i, dp, i)
+          && check(s1, index1 + i, s2, index2, dp, len - i)) {
         res = 1;
         break;
       }
     }
 
+    // true: 1
     dp[index1][index2][len - 1] = res;
     return res == 1;
   }

@@ -26,7 +26,6 @@ public class WordBreakII {
           dp[i][j] = true;
         } else {
           dp[i][j] = false;
-
           for (int k = i; k < j; k++) {
             dp[i][j] = dp[i][j] || (dp[i][k] && dp[k + 1][j]);
           }
@@ -34,17 +33,17 @@ public class WordBreakII {
       }
     }
 
-
-    List<List<String>> tmp = helper(s, dict, dp, 0, n - 1);
+    List<List<String>> tmp = getWords(s, dict, dp, 0, n - 1);
     List<String> res = new ArrayList<String>();
 
     for (List<String> list : tmp) {
       if (list.size() > 0) {
         StringBuilder sb = new StringBuilder();
-        for (String seg : list) {
-          sb.append(seg);
+        for (String word : list) {
+          sb.append(word);
           sb.append(" ");
         }
+
         sb.setLength(sb.length() - 1);
         res.add(sb.toString());
       }
@@ -53,23 +52,21 @@ public class WordBreakII {
     return res;
   }
 
-  private List<List<String>> helper(String s, Set<String> dict, boolean[][] dp, int l, int r) {
+  public List<List<String>> getWords(String s, Set<String> dict, boolean[][] dp, int l, int r) {
     List<List<String>> res = new ArrayList<List<String>>();
-
     if (l > r || !dp[l][r]) {
       res.add(new ArrayList<String>());
       return res;
     }
 
     for (int i = l; i <= r; i++) {
-      // Left part need to be in the dict first, if l < r, then we need to check dp[i + 1][r] to be true
-      if (dict.contains(s.substring(l, i + 1)) && (i == r || (i < r && dp[i + 1][r]))) {
-        String left = s.substring(l, i + 1);
-        List<List<String>> rightAll = helper(s, dict, dp, i + 1, r);
-        for (List<String> right : rightAll) {
+      if (dict.contains(s.substring(l, i + 1)) && (i == r || i < r && dp[i + 1][r])) {
+        String leftWord = s.substring(l, i + 1);
+        List<List<String>> rightWordLists = getWords(s, dict, dp, i + 1, r);
+        for (List<String> rightWords : rightWordLists) {
           List<String> list = new ArrayList<String>();
-          list.add(left);
-          list.addAll(right);
+          list.add(leftWord);
+          list.addAll(rightWords);
           res.add(list);
         }
       }

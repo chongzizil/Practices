@@ -21,15 +21,15 @@ public class EditDistance {
         } else if (j == 0) {
           dp[i][j] = i;
         } else {
+          dp[i][j] = Integer.MAX_VALUE;
           if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
             // Same
-            dp[i][j] = dp[i - 1][j - 1];
-          } else {
-            // Replace
-            dp[i][j] = dp[i - 1][j - 1] + 1;
-            // Insert & Delete
-            dp[i][j] = Math.min(dp[i][j], Math.min(dp[i - 1][j], dp[i][j - 1]) + 1);
+            dp[i][j] = Math.min(dp[i][j], dp[i - 1][j - 1]);
           }
+          // Replace
+          dp[i][j] = Math.min(dp[i][j], dp[i - 1][j - 1] + 1);
+          // Insert & Delete
+          dp[i][j] = Math.min(dp[i][j], Math.min(dp[i - 1][j], dp[i][j - 1]) + 1);
         }
       }
     }

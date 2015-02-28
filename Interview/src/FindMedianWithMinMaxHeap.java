@@ -10,7 +10,7 @@ public class FindMedianWithMinMaxHeap {
 
   public FindMedianWithMinMaxHeap() {
     maxHeap = new PriorityQueue<Integer>(20, new Comparator<Integer>() {
-      @override
+      @Override
       public int compare(Integer i1, Integer i2) {
         return i2 - i1;
       }

@@ -40,23 +40,21 @@ public class ScrambleString {
       return res == 1;
     }
 
-    res = 0;
+    dp[index1][index2][len - 1] = 0;
     for (int i = 1; i < len; i++) {
       if (check(s1, index1, s2, index2, dp, i)
           && check(s1, index1 + i, s2, index2 + i, dp, len - i)) {
-        res = 1;
+        dp[index1][index2][len - 1] = 1;
         break;
       }
 
       if (check(s1, index1, s2, index2 + len - i, dp, i)
           && check(s1, index1 + i, s2, index2, dp, len - i)) {
-        res = 1;
+        dp[index1][index2][len - 1] = 1;
         break;
       }
     }
 
-    // true: 1
-    dp[index1][index2][len - 1] = res;
-    return res == 1;
+    return dp[index1][index2][len - 1] == 1;
   }
 }

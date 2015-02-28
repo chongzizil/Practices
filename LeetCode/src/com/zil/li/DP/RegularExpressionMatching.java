@@ -52,6 +52,7 @@ public class RegularExpressionMatching {
           return false;
         }
 
+        // Note: Remember, need to step forward...
         if (helper(s, i + 1, p, indexP + 2, mem)) {
           mem[indexS][indexP] = 1;
           return true;

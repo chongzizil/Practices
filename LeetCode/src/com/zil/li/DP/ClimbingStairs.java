@@ -8,6 +8,8 @@ package com.zil.li.DP;
 public class ClimbingStairs {
   /**
    * We only need to use three variable to store the states...
+   * Time: O(n)
+   * Space: O(1)
    */
   public int solutionA(int n) {
     if (n <= 1) {

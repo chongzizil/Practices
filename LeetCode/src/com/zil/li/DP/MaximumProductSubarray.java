@@ -5,6 +5,10 @@ package com.zil.li.DP;
  */
 public class MaximumProductSubarray {
   public int maxProduct(int[] A) {
+    if (A == null) {
+      return 0;
+    }
+
     int n = A.length;
     int[] max = new int[n];
     int[] min = new int[n];

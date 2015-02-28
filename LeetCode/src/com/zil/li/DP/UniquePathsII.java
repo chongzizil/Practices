@@ -7,7 +7,7 @@ package com.zil.li.DP;
  */
 public class UniquePathsII {
   public int uniquePathsWithObstacles(int[][] obstacleGrid) {
-    if (obstacleGrid == null) {
+    if (obstacleGrid == null || obstacleGrid.length == 0 || obstacleGrid[0].length == 0) {
       return 0;
     }
 
@@ -31,6 +31,7 @@ public class UniquePathsII {
       }
     }
 
+    // Note: Starts from 1.
     for (int i = 1; i < row; i++) {
       for (int j = 1; j < col; j++) {
         dp[i][j] = obstacleGrid[i][j] == 1 ? 0 : dp[i - 1][j] + dp[i][j - 1];

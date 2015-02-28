@@ -23,6 +23,14 @@ public class MaximumSubarray {
     return res;
   }
 
+  /**
+   * DP: dp_j is max_i(S_ij) which indicate the largest S_ij for a given i <= j.
+   * Hence:
+   * dp_0 = A[0]
+   * dp_1 = A[0] + A[1], A[1] = dp_0 + A[1], A[1]
+   * dp_2 = A[0] + A[1] + A[2], A[1] + A[2], A[2] = dp_1 + A[2], A[2]
+   * ...
+   */
   public int solutionB(int[] A) {
     int n = A.length;
     int[] dp = new int[n];

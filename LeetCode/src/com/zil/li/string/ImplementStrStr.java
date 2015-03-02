@@ -3,6 +3,8 @@ package com.zil.li.string;
 /**
  * Created by youlongli on 12/30/14.
  *
+ * https://oj.leetcode.com/submissions/detail/22050454/
+ *
  * Some details:
  * 1. Algorithms such as KMP can be more efficient, yet too complex for an interview.
  */
@@ -11,7 +13,7 @@ public class ImplementStrStr {
    * Brutal force
    * Time complexity: O(nm) (Worst case. n: length of haystack. m: length of needle)
    * Space complexity: O(1)
-   * Runtime: 440 ms
+   * Runtime: 271 ms
    */
   public int solutionA(String haystack, String needle) {
     if (haystack == null || needle == null) {

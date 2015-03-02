@@ -2,6 +2,8 @@ package com.zil.li.string;
 
 /**
  * Created by youlongli on 1/28/15.
+ *
+ * https://oj.leetcode.com/problems/longest-palindromic-substring/
  */
 public class LongestPalindromicSubstring {
   /**
@@ -35,11 +37,8 @@ public class LongestPalindromicSubstring {
       l--;
       r++;
     }
-    if (hasPalindrome) {
-      return s.substring(l + 1, r);
-    } else {
-      return "";
-    }
+
+    return hasPalindrome ? s.substring(l + 1, r) : "";
   }
 
   /**
@@ -47,47 +46,37 @@ public class LongestPalindromicSubstring {
    * are identical, then the expanded string is also a palindrome.
    * Time complexity: O(n^2)
    * Space complexity: O(n^2)
-   * Runtime: 396 ms
+   * Runtime: 361 ms
    */
   public String longestPalindrome(String s) {
-    int n = s.length();
+    if (s == null) {
+      return null;
+    }
 
-    int start = 0;
-    int end = 0;
-    int max = 0;
+    int n = s.length();
     boolean[][] dp = new boolean[n][n];
 
-    for (int l = 0; l < n; l++) {
-      for (int i = 0; i < n - l; i++) {
-        int j = i + l;
-        if (i == j) {
+    for (int l = 1; l <= n; l++) {
+      for (int i = 0; i < n - l + 1; i++) {
+        int j = i + l - 1;
+        if (l == 1) {
           dp[i][j] = true;
         } else {
-          if (s.charAt(i) == s.charAt(j)) {
-            if (l == 1) {
-              dp[i][j] = true;
-            } else if (dp[i + 1][j - 1]) {
-              dp[i][j] = true;
-            } else {
-              dp[i][j] = false;
-            }
-          } else {
-            dp[i][j] = false;
-          }
+          dp[i][j] = s.charAt(i) == s.charAt(j) && (l == 2 || dp[i + 1][j - 1]);
         }
       }
     }
 
-    for (int l = 0; l < n; l++) {
-      for (int i = 0; i < n - l; i++) {
-        int j = i + l;
-        if (dp[i][j] && j - i > max) {
-          start = i;
-          end = j;
+    // Start from the longest length...
+    for (int l = n; l >= 1; l--) {
+      for (int i = 0; i < n - l + 1; i++) {
+        int j = i + l - 1;
+        if (dp[i][j]) {
+          return s.substring(i, j + 1);
         }
       }
     }
 
-    return s.substring(start, end + 1);
+    throw new IllegalArgumentException("No way...");
   }
 }

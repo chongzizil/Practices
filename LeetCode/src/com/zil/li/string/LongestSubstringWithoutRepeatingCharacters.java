@@ -1,7 +1,11 @@
 package com.zil.li.string;
 
+import java.util.Arrays;
+
 /**
  * Created by youlongli on 1/21/15.
+ *
+ * https://oj.leetcode.com/problems/longest-substring-without-repeating-characters/
  */
 public class LongestSubstringWithoutRepeatingCharacters {
   /**
@@ -11,25 +15,27 @@ public class LongestSubstringWithoutRepeatingCharacters {
    * Runtime: 261 ms
    */
   public int solutionA(String s) {
+    if (s == null) {
+      return 0;
+    }
+
     int res = 0;
     int start = 0;
-    int[] dict = new int[256];
+    int[] map = new int[256]; // Stores the index of the last appearance of that character
 
-    for (int i = 0; i < 256; i++) {
-      dict[i] = -1;
-    }
+    Arrays.fill(map, -1);
+    for (int i = 0; i < s.length(); i++) {
+      char c = s.charAt(i);
 
-    for (int curr = 0; curr < s.length(); curr++) {
-      char c = s.charAt(curr);
-      // Found a repeated character, update the start index.
-      if (dict[c] >= start) {
-        start = dict[c] + 1;
+      // Find duplicate
+      if (map[c] >= start) {
+        res = Math.max(res, i - start);
+        start = map[c] + 1; // Update the start index of the substring
       }
-      dict[c] = curr;
-      // Update the max length of non-repeated substring
-      res = Math.max(curr - start + 1, res);
+
+      map[c] = i;
     }
 
-    return res;
+    return Math.max(res, s.length() - start);
   }
 }

@@ -14,6 +14,10 @@ public class TwoSumII {
    * Space complexity: O(1)
    */
   public int[] solutionA(int[] numbers, int target) {
+    if (numbers == null || numbers.length < 2) {
+      throw new IllegalArgumentException("No solution");
+    }
+
     for (int i = 0; i < numbers.length; i++) {
       int possibleIndex = binarySearch(numbers, target - numbers[i], i + 1);
       if (possibleIndex != -1) {
@@ -21,7 +25,7 @@ public class TwoSumII {
       }
     }
 
-    throw new IllegalArgumentException("No result...");
+    throw new IllegalArgumentException("No solution");
   }
 
   public int binarySearch(int[] numbers, int key, int low) {
@@ -48,8 +52,13 @@ public class TwoSumII {
    * Space complexity: O(1)
    */
   public int[] solutionB(int[] numbers, int target) {
+    if (numbers == null || numbers.length < 2) {
+      throw new IllegalArgumentException("No solution");
+    }
+
     int l = 0;
     int r = numbers.length - 1;
+
     while (l < r) {
       int sum = numbers[l] + numbers[r];
       if (sum > target) {
@@ -61,6 +70,6 @@ public class TwoSumII {
       }
     }
 
-    throw new IllegalArgumentException("No result...");
+    throw new IllegalArgumentException("No solution");
   }
 }

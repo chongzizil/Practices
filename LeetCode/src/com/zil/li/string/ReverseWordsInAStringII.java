@@ -3,31 +3,38 @@ package com.zil.li.string;
 /**
  * Created by youlongli on 1/5/15.
  *
+ * https://oj.leetcode.com/submissions/detail/22051307/
+ *
  * Added constraints: “The input string does not contain leading or trailing spaces and the words are always separated by a single space.”
  */
 public class ReverseWordsInAStringII {
   /**
    * Two pass solution. This should be the better one.
-   * Runtime: 229 ms
+   * Runtime: 219 ms
    */
   public void solutionA(char[] s) {
+    if (s == null) {
+      return;
+    }
+
     reverse(s, 0, s.length);
 
-    int j = s.length;
-    for (int i = s.length - 1; i >= 0; i--) {
-      if (s[i] == ' ') {
-        j = i;
-      } else if (i == 0 || s[i - 1] == ' ') {
-        reverse(s, i, j);
+    int end = s.length;
+    for (int beg = s.length - 1; beg >= 0; beg--) {
+      if (s[beg] == ' ') {
+        end = beg;
+      } else if (beg == 0 || s[beg - 1] == ' ') {
+        reverse(s, beg, end);
       }
     }
   }
 
   private void reverse(char[] s, int beg, int end) {
-    for (int i = beg, j = end - 1; i < j; i++, j--) {
-      char tmp = s[i];
-      s[i] = s[j];
-      s[j] = tmp;
+    end--;
+    for (; beg < end; beg++, end--) {
+      char tmp = s[beg];
+      s[beg] = s[end];
+      s[end] = tmp;
     }
   }
 

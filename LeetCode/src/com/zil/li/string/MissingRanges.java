@@ -5,6 +5,8 @@ import java.util.List;
 
 /**
  * Created by youlongli on 1/28/15.
+ *
+ * https://oj.leetcode.com/problems/missing-ranges/
  */
 public class MissingRanges {
   /**
@@ -52,7 +54,7 @@ public class MissingRanges {
    */
   public List<String> solutionB(int[] A, int lower, int upper) {
     List<String> res = new ArrayList<String>();
-    int prev = lower - 1;
+    int prev = lower - 1; // Note: remember the corner case for lower bound and upper bound
 
     for (int i = 0; i <= A.length; i++) {
       int curr = i == A.length ? upper + 1 : A[i];

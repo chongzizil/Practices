@@ -4,6 +4,8 @@ import java.util.Queue;
 
 /**
  * Created by youlongli on 2/26/15.
+ *
+ * http://www.cnblogs.com/yuzhangcmu/p/4243174.html
  */
 public class FindMedianWithMinMaxHeap {
   private static Queue<Integer> maxHeap, minHeap;

@@ -3,6 +3,8 @@ package com.zil.li.string;
 /**
  * Created by youlongli on 1/6/15.
  *
+ * https://oj.leetcode.com/submissions/detail/22051804/
+ *
  * Some details:
  * 1. All spaces are discarded until the first non-space character.
  * 2. One unary operator is accepted.
@@ -35,10 +37,8 @@ public class StringToInteger {
     }
 
     // Check unary operator
-    if (i < n && str.charAt(i) == '+') {
-      i++;
-    } else if (i < n && str.charAt(i) == '-') {
-      sign = -1;
+    if (i < n && (str.charAt(i) == '+' || str.charAt(i) == '-')) {
+      sign = str.charAt(i) == '-' ? -1 : 1;
       i++;
     }
 

@@ -6,6 +6,8 @@ import java.util.Deque;
 /**
  * Created by youlongli on 12/30/14.
  *
+ * https://oj.leetcode.com/problems/valid-palindrome/
+ *
  * Some details:
  * 1. Is it case sensitive?
  * 2. Is it possible a empty string, and will it be considered a palindrome?
@@ -48,23 +50,25 @@ public class ValidPalindrome {
    * Runtime: 464 ms
    */
   public boolean solutionB(String s) {
-    int low = 0;
-    int high = s.length() - 1;
+    int l = 0;
+    int r = s.length() - 1;
+    // Note: Take care of the cases
     s = s.toLowerCase();
 
-    while (low < high) {
-      while (low < high && !Character.isLetterOrDigit(s.charAt(low))) {
-        low++;
+    while (l < r) {
+      while (l < r && !Character.isLetterOrDigit(s.charAt(l))) {
+        l++;
       }
-      while (low < high && !Character.isLetterOrDigit(s.charAt(high))) {
-        high--;
+      while (l < r && !Character.isLetterOrDigit(s.charAt(r))) {
+        r--;
       }
 
-      if (s.charAt(low) != s.charAt(high)) {
+      if (s.charAt(l) != s.charAt(r)) {
         return false;
       }
-
-      low++;high--;
+      // Do not forget to move the pointers
+      l++;
+      r--;
     }
 
     return true;

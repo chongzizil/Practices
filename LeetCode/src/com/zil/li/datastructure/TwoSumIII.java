@@ -1,32 +1,34 @@
 package com.zil.li.datastructure;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by youlongli on 2/17/15.
+ *
+ * https://oj.leetcode.com/problems/two-sum-iii-data-structure-design/
  */
 public class TwoSumIII {
-  private int[] nums = new int[8];
-  int curr = 0;
+  private int[] array = new int[16];
+  private int curr = 0;
 
   public void add(int number) {
-    if (curr == nums.length) {
+    if (isFull()) {
       doubleSize();
     }
-    nums[curr] = number;
-    curr++;
-    sort();
+
+    array[curr++] = number;
   }
 
   public boolean find(int value) {
-    int l = 0;
-    int r = curr - 1;
-    while (l < r) {
-      int sum = nums[l] + nums[r];
-      if (sum > value) {
-        r--;
-      } else if (sum < value) {
-        l++;
-      } else {
+    Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+
+    for (int i = 0; i < curr; i++) {
+      int numNeed = value - array[i];
+      if (map.containsKey(numNeed)) {
         return true;
+      } else {
+        map.put(array[i], i);
       }
     }
 
@@ -34,42 +36,14 @@ public class TwoSumIII {
   }
 
   private void doubleSize() {
-    int[] tmp = nums;
-    nums = new int[curr * 2];
-    for (int i = 0; i < tmp.length; i++) {
-      nums[i] = tmp[i];
+    int[] newArray = new int[array.length * 2];
+    for (int i = 0; i < array.length; i++) {
+      newArray[i] = array[i];
     }
+    array = newArray;
   }
 
-  private void sort() {
-    quickSort(0, curr - 1);
-  }
-
-  private void quickSort(int l, int r) {
-    int mid = l + (r - l) / 2;
-    int i = l;
-    int j = r;
-    while (i <= j) {
-      while (nums[i] < nums[mid]) {
-        i++;
-      }
-      while (nums[j] > nums[mid]) {
-        j--;
-      }
-
-      if (i <= j) {
-        int tmp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = tmp;
-        i++;
-        j--;
-      }
-    }
-    if (i < r) {
-      quickSort(i, r);
-    }
-    if (j > l) {
-      quickSort(l, j);
-    }
+  private boolean isFull() {
+    return curr == array.length;
   }
 }

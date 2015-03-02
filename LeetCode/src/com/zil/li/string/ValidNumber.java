@@ -2,12 +2,14 @@ package com.zil.li.string;
 
 /**
  * Created by youlongli on 1/21/15.
+ *
+ * https://oj.leetcode.com/problems/valid-number/
  */
 public class ValidNumber {
   /**
    * Time complexity: O(n)
    * Space complexity: O(1)
-   * Runtime: 242 ms
+   * Runtime: 224 ms
    */
   public boolean solutionA(String s) {
     int i = 0;
@@ -24,6 +26,7 @@ public class ValidNumber {
       i++;
     }
     if (i < n && s.charAt(i) == '.') {
+      // .1 is considered valid, otherwise check isNumber is necessary.
       i++;
       while(i < n && Character.isDigit(s.charAt(i))) {
         isNumber = true;

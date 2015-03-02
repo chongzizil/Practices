@@ -13,7 +13,11 @@ import java.util.Queue;
  * https://oj.leetcode.com/problems/merge-k-sorted-lists/
  */
 public class MergeKSortedLists {
-  public ListNode mergeKLists(List<ListNode> lists) {
+  /**
+   * Time complexity: O(nklogk)
+   * Space complexity: O(k)
+   */
+  public ListNode solutionA(List<ListNode> lists) {
     if (lists == null || lists.size() == 0) {
       return null;
     }
@@ -40,6 +44,56 @@ public class MergeKSortedLists {
       if (node.next != null) {
         pq.offer(node.next);
       }
+    }
+
+    return dummy.next;
+  }
+
+  /**
+   * Solution using merge sort. Each time we sort and merge two list.
+   * This solution use less space.
+   *
+   * Time complexity: O(nklogk)
+   * Space complexity: O(1)
+   */
+  public ListNode solutionB(List<ListNode> lists) {
+    if (lists == null || lists.isEmpty()) {
+      return null;
+    }
+
+    int end = lists.size() - 1;
+    while (end > 0) {
+      int beg = 0;
+      while (beg < end) {
+        // Each time we merge two list, we store it back to the lists
+        lists.set(beg, merge(lists.get(beg), lists.get(end)));
+        beg++;
+        end--;
+      }
+    }
+
+    return lists.get(0);
+  }
+
+  private ListNode merge(ListNode n1, ListNode n2) {
+    ListNode dummy = new ListNode(0);
+    ListNode curr = dummy;
+    while (n1 != null && n2 != null) {
+      if (n1.val < n2.val) {
+        curr.next = n1;
+        n1 = n1.next;
+      } else {
+        curr.next = n2;
+        n2 = n2.next;
+      }
+      curr = curr.next;
+    }
+
+    if (n1 != null) {
+      curr.next = n1;
+    }
+    if (n2 != null) {
+      curr.next = n2;
     }
 
     return dummy.next;

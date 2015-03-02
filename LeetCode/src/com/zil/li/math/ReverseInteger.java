@@ -2,6 +2,8 @@ package com.zil.li.math;
 
 /**
  * Created by youlongli on 2/9/15.
+ *
+ * https://oj.leetcode.com/problems/reverse-integer/
  */
 public class ReverseInteger {
   private static final int MAX = Integer.MAX_VALUE;
@@ -11,21 +13,16 @@ public class ReverseInteger {
    * Runtime: 246 ms
    */
   public int reverse(int x) {
-    boolean isPositive = true;
     int res = 0;
-
-    if (x < 0) {
-      isPositive = false;
-    }
 
     while (x != 0) {
       int digit = x % 10;
 
-      if (isPositive) {
+      if (x > 0) { // Positive, check overflow
         if (res > MAX / 10 || (res == MAX / 10 && digit > MAX % 10)) {
           return 0;
         }
-      } else {
+      } else { // Negative, check underflow
         if (res < MIN / 10 || (res == MIN / 10 && digit < MIN % 10)) {
           return 0;
         }

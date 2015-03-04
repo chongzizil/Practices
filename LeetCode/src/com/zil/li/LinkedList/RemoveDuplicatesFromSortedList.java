@@ -13,10 +13,7 @@ public class RemoveDuplicatesFromSortedList {
       return null;
     }
 
-    ListNode dummy = new ListNode(0);
-    dummy.next = head;
-
-    ListNode curr = dummy.next;
+    ListNode curr = head;
 
     while (curr.next != null) {
       if (curr.val == curr.next.val) {
@@ -26,6 +23,6 @@ public class RemoveDuplicatesFromSortedList {
       }
     }
 
-    return dummy.next;
+    return head;
   }
 }

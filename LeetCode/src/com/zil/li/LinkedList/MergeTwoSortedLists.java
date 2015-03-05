@@ -8,6 +8,10 @@ import com.zil.li.datastructure.ListNode;
  * https://oj.leetcode.com/problems/merge-two-sorted-lists/
  */
 public class MergeTwoSortedLists {
+  /**
+   * Time complexity: O(m + n)
+   * Space complexity: O(1)
+   */
   public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
     ListNode dummy = new ListNode(0);
     ListNode curr = dummy;
@@ -25,7 +29,9 @@ public class MergeTwoSortedLists {
 
     if (l1 != null) {
       curr.next = l1;
-    } else if (l2 != null) {
+    }
+
+    if (l2 != null) {
       curr.next = l2;
     }
 

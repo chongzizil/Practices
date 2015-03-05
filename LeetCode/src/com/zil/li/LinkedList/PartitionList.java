@@ -10,51 +10,30 @@ import com.zil.li.datastructure.ListNode;
 public class PartitionList {
   /**
    * More concise one, clean the tail at the last.
+   *
+   * Time complexity: O(n)
+   * Space complexity: O(1)
    */
   public ListNode solutionA(ListNode head, int x) {
-    ListNode small = new ListNode(0);
-    ListNode currS = small;
-    ListNode large = new ListNode(0);
-    ListNode currL = large;
+    ListNode leftDummy = new ListNode(0);
+    ListNode rightDummy = new ListNode(0);
+    ListNode leftCurr = leftDummy;
+    ListNode rightCurr = rightDummy;
 
     while (head != null) {
       if (head.val < x) {
-        currS.next = head;
-        currS = currS.next;
+        leftCurr.next = head;
+        leftCurr = leftCurr.next;
       } else {
-        currL.next = head;
-        currL = currL.next;
+        rightCurr.next = head;
+        rightCurr = rightCurr.next;
       }
-      head = head.next;
+      head = head.next; // Note: Do not forget to move the head...
     }
 
-    currL.next = null;
-    currS.next = large.next;
-    return small.next;
-  }
+    leftCurr.next = rightDummy.next;
+    rightCurr.next = null;
 
-  public ListNode solutionB(ListNode head, int x) {
-    ListNode small = new ListNode(0);
-    ListNode large = new ListNode(0);
-    ListNode currSmall = small;
-    ListNode currLarge = large;
-    ListNode curr = head;
-
-    while (curr != null) {
-      if (curr.val < x) {
-        currSmall.next = curr;
-        curr = curr.next;
-        currSmall = currSmall.next;
-        currSmall.next = null;
-      } else {
-        currLarge.next = curr;
-        curr = curr.next;
-        currLarge = currLarge.next;
-        currLarge.next = null;
-      }
-    }
-
-    currSmall.next = large.next;
-    return small.next;
+    return leftDummy.next;
   }
 }

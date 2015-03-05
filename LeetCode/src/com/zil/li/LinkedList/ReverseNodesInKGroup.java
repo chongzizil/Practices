@@ -8,42 +8,51 @@ import com.zil.li.datastructure.ListNode;
  * https://oj.leetcode.com/problems/reverse-nodes-in-k-group/
  */
 public class ReverseNodesInKGroup {
+  /**
+   * Time complexity: O(n)
+   * Space complexity: O(1)
+   */
   public ListNode reverseKGroup(ListNode head, int k) {
     if (head == null || k <= 1) {
-      return head;
+      return head; // Note: return head instead of null since we also check k == 1 which means no node will be reversed.
     }
 
-    int len = getLength(head);
-    int num = len / k;
+    int len = getLen(head);
+    int numOfGroup = len / k;
 
-    // K might be larger than the length of the list
-    if (num == 0) {
-      return head;
+    if (numOfGroup == 0) {
+      return head; // Note: must return if group number == 0, otherwise the newHead will throw null pointer exception.
     }
 
     ListNode dummy = new ListNode(0);
     dummy.next = head;
     ListNode prev = dummy;
-    ListNode res = dummy;
+    ListNode newHead = prev;
 
-    // Get the new head first
     for (int i = 0; i < k; i++) {
-      res = res.next;
+      newHead = newHead.next;
     }
 
-    // Reverse each group
-    for (int i = 0; i < num; i++) {
-      ListNode post = prev;
+    for (int i = 0; i < numOfGroup; i++) {
+      ListNode post = prev; // update post node first
       for (int j = 0; j < k + 1; j++) {
         post = post.next;
       }
       prev = reverse(prev, post);
     }
 
-    return res;
+    return dummy.next;
   }
 
-  // Reverse all the nodes between prev and post, then return the tail node
+  private int getLen(ListNode head) {
+    int len = 0;
+    while (head != null) {
+      len++;
+      head = head.next;
+    }
+    return len;
+  }
+
   private ListNode reverse(ListNode prev, ListNode post) {
     ListNode curr = prev.next;
     while (curr.next != post) {
@@ -53,14 +62,5 @@ public class ReverseNodesInKGroup {
       prev.next = next;
     }
     return curr;
-  }
-
-  private int getLength(ListNode head) {
-    int len = 0;
-    while (head != null) {
-      len++;
-      head = head.next;
-    }
-    return len;
   }
 }

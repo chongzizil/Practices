@@ -6,58 +6,54 @@ import com.zil.li.datastructure.ListNode;
  * Created by youlongli on 2/5/15.
  */
 public class ReorderList {
+  /**
+   * Time complexity: O(n)
+   * Space complexity: O(1)
+   */
   public void reorderList(ListNode head) {
     if (head == null || head.next == null) {
       return;
     }
 
+    ListNode l = head;
+    ListNode mid = getMiddle(head); // Mid is the last node of left part
+    ListNode r = reverse(mid); // Mid passes in as the prev node.
+    mid.next = null;
+
     ListNode dummy = new ListNode(0);
     ListNode curr = dummy;
 
-    ListNode l = head;
-    ListNode mid = getMiddle(head);
-    ListNode r = reverse(mid.next);
-    mid.next = null;
-
     while (l != null && r != null) {
       curr.next = l;
-      l = l.next;
       curr = curr.next;
+      l = l.next;
 
       curr.next = r;
-      r = r.next;
       curr = curr.next;
+      r = r.next;
     }
 
-    // Left part will have the same number or one more node than the right part.
-    if (l != null) {
-      curr.next = l;
-    }
+    curr.next = l; // Append l anyway, it's either null or a single node.
   }
 
-  // Return the middle node, which is the last node of the left part
-  private ListNode getMiddle(ListNode head) {
-    ListNode slow = head;
-    ListNode fast = head.next;
+  private ListNode reverse(ListNode prev) {
+    ListNode curr = prev.next;
+    while (curr.next != null) {
+      ListNode next = curr.next;
+      curr.next = next.next;
+      next.next = prev.next;
+      prev.next = next;
+    }
+    return prev.next;
+  }
 
+  private ListNode getMiddle(ListNode head) {
+    ListNode fast = head.next; // Already make sure head.next != null at start
+    ListNode slow = head;
     while (fast != null && fast.next != null) {
       fast = fast.next.next;
       slow = slow.next;
     }
-
     return slow;
-  }
-
-  private ListNode reverse(ListNode head) {
-    ListNode dummy = new ListNode(0);
-    dummy.next = head;
-    ListNode curr = head;
-    while (curr.next != null) {
-      ListNode next = curr.next;
-      curr.next = next.next;
-      next.next = dummy.next;
-      dummy.next = next;
-    }
-    return dummy.next;
   }
 }

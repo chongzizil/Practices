@@ -8,6 +8,10 @@ import com.zil.li.datastructure.ListNode;
  * https://oj.leetcode.com/problems/remove-nth-node-from-end-of-list/
  */
 public class RemoveNthNodeFromEndOfList {
+  /**
+   * Time complexity: O(n)
+   * Space complexity: O(1)
+   */
   public ListNode removeNthFromEnd(ListNode head, int n) {
     if (head == null) {
       return null;
@@ -16,9 +20,10 @@ public class RemoveNthNodeFromEndOfList {
     ListNode dummy = new ListNode(0);
     dummy.next = head;
 
-    ListNode prev = dummy;
     ListNode end = dummy;
+    ListNode prev = dummy;
 
+    // Assume n is a legal input.
     for (int i = 0; i < n; i++) {
       end = end.next;
     }
@@ -29,7 +34,6 @@ public class RemoveNthNodeFromEndOfList {
     }
 
     prev.next = prev.next.next;
-
     return dummy.next;
   }
 }

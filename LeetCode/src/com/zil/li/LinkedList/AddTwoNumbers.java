@@ -8,6 +8,10 @@ import com.zil.li.datastructure.ListNode;
  * https://oj.leetcode.com/problems/add-two-numbers/
  */
 public class AddTwoNumbers {
+  /**
+   * Time complexity: O(n)
+   * Space complexity: O(n)
+   */
   public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
     ListNode dummy = new ListNode(0);
     ListNode curr = dummy;
@@ -25,6 +29,7 @@ public class AddTwoNumbers {
       l2 = l2.next;
     }
 
+    // Note: Use while loop... Don't be careless
     while (l1 != null) {
       int sum = l1.val + carry;
       int digit = sum % 10;

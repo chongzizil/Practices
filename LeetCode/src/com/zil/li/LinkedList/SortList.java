@@ -4,15 +4,21 @@ import com.zil.li.datastructure.ListNode;
 
 /**
  * Created by youlongli on 2/15/15.
+ *
+ * https://oj.leetcode.com/problems/sort-list/
  */
 public class SortList {
-  // Merge sort.
+  /**
+   * Merge sort.
+   * Time complexity: O(nlogn)
+   * Space complexity: O(1)
+   */
   public ListNode solutionA(ListNode head) {
     return mergeSort(head);
   }
 
   private ListNode mergeSort(ListNode head) {
-    // Return null if the list is null or the list only has one node
+    // Note: Return null if the list is null or the list only has one node.
     if (head == null || head.next == null) {
       return head;
     }

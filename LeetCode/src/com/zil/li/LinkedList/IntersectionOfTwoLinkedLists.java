@@ -13,38 +13,39 @@ import com.zil.li.datastructure.ListNode;
  * will be null...
  */
 public class IntersectionOfTwoLinkedLists {
+  /**
+   * Time complexity: O(n)
+   * Space complexity: O(1)
+   */
   public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
     if (headA == null || headB == null) {
       return null;
     }
 
-    int lenA = getLength(headA);
-    int lenB = getLength(headB);
+    int lenA = getLen(headA);
+    int lenB = getLen(headB);
     int diff = Math.abs(lenA - lenB);
-
-    ListNode currA = headA;
-    ListNode currB = headB;
 
     for (int i = 0; i < diff; i++) {
       if (lenA > lenB) {
-        currA = currA.next;
+        headA = headA.next;
       } else {
-        currB = currB.next;
+        headB = headB.next;
       }
     }
 
-    while (currA != null && currB != null) {
-      if (currA.val == currB.val) {
-        return currA;
+    while (headA != null && headB != null) {
+      if (headA.val == headB.val) {
+        return headA; // Found
       }
-      currA = currA.next;
-      currB = currB.next;
+      headA = headA.next;
+      headB = headB.next;
     }
 
-    return null;
+    return null; // Not found
   }
 
-  private int getLength(ListNode head) {
+  private int getLen(ListNode head) {
     int len = 0;
     while (head != null) {
       len++;

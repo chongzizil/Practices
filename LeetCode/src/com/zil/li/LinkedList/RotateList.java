@@ -8,48 +8,50 @@ import com.zil.li.datastructure.ListNode;
  * https://oj.leetcode.com/problems/rotate-list/
  */
 public class RotateList {
-  public ListNode rotateRight(ListNode head, int n) {
+  /**
+   * Time complexity: O(n)
+   * Space complexity: O(1)
+   */
+  public ListNode rotateRight(ListNode head, int k) {
     if (head == null) {
-      return null;
+      return head;
     }
 
-    int size = getSize(head);
-    n = n % size;
+    int len = getLen(head);
+    k = k % len;
 
-    if (n == 0) {
-      return head;
+    if (k == 0) {
+      return head; // Note: Return the head
     }
 
     ListNode dummy = new ListNode(0);
     dummy.next = head;
 
-    ListNode fast = dummy;
-    ListNode slow = dummy;
+    ListNode prev = dummy; // new tail
+    ListNode end = dummy; // connect node
 
-    for (int i = 0; i < n; i++) {
-      fast = fast.next;
+    for (int i = 0; i < k; i++) {
+      end = end.next;
     }
 
-    while (fast.next != null) {
-      fast = fast.next;
-      slow = slow.next;
+    while (end.next != null) {
+      prev = prev.next;
+      end = end.next;
     }
 
-    // Fast will point to the old tail
-    // Slow will point to the new tail and its next node will be the new head
-    fast.next = dummy.next;
-    dummy.next = slow.next;
-    slow.next = null;
+    end.next = dummy.next; // connect
+    dummy.next = prev.next; // new head
+    prev.next = null; // new tail
 
     return dummy.next;
   }
 
-  private int getSize(ListNode head) {
-    int size = 0;
+  private int getLen(ListNode head) {
+    int len = 0;
     while (head != null) {
-      size++;
+      len++;
       head = head.next;
     }
-    return size;
+    return len;
   }
 }

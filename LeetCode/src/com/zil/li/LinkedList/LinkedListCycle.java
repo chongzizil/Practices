@@ -8,6 +8,10 @@ import com.zil.li.datastructure.ListNode;
  * https://oj.leetcode.com/problems/linked-list-cycle/
  */
 public class LinkedListCycle {
+  /**
+   * Time complexity: O(n)
+   * Space complexity: O(1)
+   */
   public boolean hasCycle(ListNode head) {
     ListNode fast = head;
     ListNode slow = head;

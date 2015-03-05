@@ -2,23 +2,39 @@ package com.zil.li.LinkedList;
 
 import com.zil.li.datastructure.RandomListNode;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by youlongli on 2/15/15.
- *
+ * <p>
  * Idea: http://www.cnblogs.com/TenosDoIt/p/3387000.html
  */
 public class CopyListWithRandomPointer {
-  private void copyNext(RandomListNode head) {
+  /**
+   * Time complexity: O(n)
+   * Space complexity: O(1)
+   */
+  public RandomListNode solutionA(RandomListNode head) {
+    if (head == null) {
+      return head;
+    }
+
+    copyNode(head);
+    copyRandomNode(head);
+    return split(head);
+  }
+
+  private void copyNode(RandomListNode head) {
     while (head != null) {
-      RandomListNode node = new RandomListNode(head.label);
-      node.random = head.random; // ?
-      node.next = head.next;
-      head.next = node;
+      RandomListNode copy = new RandomListNode(head.label);
+      copy.next = head.next;
+      head.next = copy;
       head = head.next.next;
     }
   }
 
-  private void copyRandom(RandomListNode head) {
+  private void copyRandomNode(RandomListNode head) {
     while (head != null) {
       if (head.random != null) {
         head.next.random = head.random.next;
@@ -27,28 +43,62 @@ public class CopyListWithRandomPointer {
     }
   }
 
-  // Remember to restore the original list!!!
   private RandomListNode split(RandomListNode head) {
     RandomListNode dummy = new RandomListNode(0);
     dummy.next = head;
     RandomListNode curr = dummy;
+
     while (curr.next != null) {
-      RandomListNode tmp = curr.next;
+      RandomListNode original = curr.next;
       curr.next = curr.next.next;
       curr = curr.next;
-      tmp.next = curr.next;
+      // Note: restore the original node.
+      original.next = curr.next;
     }
 
     return dummy.next;
   }
 
-  public RandomListNode copyRandomList(RandomListNode head) {
-    if (head == null) {
-      return null;
+  /**
+   * Use hash map.
+   * Time complexity: O(n)
+   * Space complexity: O(n)
+   */
+  public RandomListNode solutionB(RandomListNode head) {
+    Map<RandomListNode, RandomListNode> map = new HashMap<RandomListNode, RandomListNode>(); // key: original, value: copy
+
+    copyNode(map, head);
+    copyRandomNode(map, head);
+    return generateList(map, head);
+  }
+
+  private void copyNode(Map<RandomListNode, RandomListNode> map, RandomListNode head) {
+    while (head != null) {
+      RandomListNode copy = new RandomListNode(head.label);
+      map.put(head, copy);
+      head = head.next;
+    }
+  }
+
+  private void copyRandomNode(Map<RandomListNode, RandomListNode> map, RandomListNode head) {
+    while (head != null) {
+      if (head.random != null) {
+        map.get(head).random = map.get(head.random);
+      }
+      head = head.next;
+    }
+  }
+
+  private RandomListNode generateList(Map<RandomListNode, RandomListNode> map, RandomListNode head) {
+    RandomListNode dummy = new RandomListNode(0);
+    RandomListNode curr = dummy;
+
+    while (head != null) {
+      curr.next = map.get(head);
+      head = head.next;
+      curr = curr.next;
     }
 
-    copyNext(head);
-    copyRandom(head);
-    return split(head);
+    return dummy.next;
   }
 }

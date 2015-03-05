@@ -17,27 +17,29 @@ public class MergeKSortedLists {
    * Time complexity: O(nklogk)
    * Space complexity: O(k)
    */
-  public ListNode solutionA(List<ListNode> lists) {
+  private Comparator<ListNode> comparator = new Comparator<ListNode>() {
+    public int compare(ListNode l1, ListNode l2) {
+      return l1.val - l2.val;
+    }
+  };
+
+  public ListNode mergeKLists(List<ListNode> lists) {
+    // Note: Remember to check if lists.size == 0 because priority queue does not accept 0 initial size...
     if (lists == null || lists.size() == 0) {
       return null;
     }
 
-    Queue<ListNode> pq = new PriorityQueue<ListNode>(lists.size(), new Comparator<ListNode>() {
-      public int compare(ListNode node1, ListNode node2) {
-        return node1.val - node2.val;
-      }
-    });
-
+    PriorityQueue<ListNode> pq = new PriorityQueue<ListNode>(lists.size(), comparator);
     ListNode dummy = new ListNode(0);
     ListNode curr = dummy;
 
-    for (ListNode head : lists) {
-      if (head != null) {
-        pq.offer(head);
+    for (ListNode list : lists) {
+      if (list != null) {
+        pq.offer(list);
       }
     }
 
-    while(!pq.isEmpty()) {
+    while (!pq.isEmpty()) {
       ListNode node = pq.poll();
       curr.next = node;
       curr = curr.next;

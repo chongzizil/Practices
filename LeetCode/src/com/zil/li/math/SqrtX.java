@@ -2,31 +2,37 @@ package com.zil.li.math;
 
 /**
  * Created by youlongli on 2/3/15.
+ *
+ * https://oj.leetcode.com/problems/sqrtx/
  */
 public class SqrtX {
+  /**
+   * Use binary search
+   * Time complexity: O(n)
+   * Space complexity: O(1)
+   */
   public int solutionA(int x) {
-    if (x == 0 || x == 1) {
-      return x;
+    if (x <= 1) {
+      return x; // Base case
     }
 
-    int low = 1;
-    int high = x;
+    int l = 1;
+    int r = x;
 
-    while (low + 1 < high) {
-      int mid = low + (high - low) / 2;
+    while (l + 1 < r) {
+      int mid = l + (r - l) / 2;
       int tmp = x / mid;
 
-      // Do not use (mid * mid < tmp) which might cause overflow!
-      if (mid < tmp) {
-        low = mid;
-      } else if (mid > tmp) {
-        high = mid;
+      if (tmp > mid) {
+        l = mid;
+      } else if (tmp < mid) {
+        r = mid;
       } else {
         return mid;
       }
     }
 
-    return low;
+    return l;
   }
 
   public int solutionB(int x) {

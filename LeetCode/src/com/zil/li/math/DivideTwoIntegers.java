@@ -2,6 +2,8 @@ package com.zil.li.math;
 
 /**
  * Created by youlongli on 2/2/15.
+ *
+ * https://oj.leetcode.com/problems/divide-two-integers/
  */
 public class DivideTwoIntegers {
   /**
@@ -13,25 +15,25 @@ public class DivideTwoIntegers {
       return Integer.MAX_VALUE;
     }
 
+    int sign = 1;
+    if (dividend < 0 ^ divisor < 0) {
+      sign = -1;
+    }
+
     int res = 0;
-    boolean isPositive = true;
     long a = Math.abs((long)dividend);
     long b = Math.abs((long)divisor);
 
-    if (dividend >= 0 ^ divisor >= 0) {
-      isPositive = false;
-    }
-
     while (a >= b) {
       int shift = 1;
-      while ((b << shift) <= a) {
+      while (a >= (b << shift)) {
         shift++;
       }
 
-      a -= b << (shift - 1);
       res += 1 << (shift - 1);
+      a -= b << (shift - 1);
     }
 
-    return isPositive ? res : -res;
+    return res * sign;
   }
 }

@@ -1,4 +1,4 @@
-package com.zil.li.array;
+package com.zil.li.binarysearch;
 
 /**
  * Created by youlongli on 2/4/15.
@@ -28,6 +28,7 @@ public class FindMinimumInRotatedSortedArray {
       }
     }
 
+    // Except for the case where the array is not rotated, the left element should be the largest and the right should be smallest.
     return Math.min(num[l], num[r]);
   }
 }

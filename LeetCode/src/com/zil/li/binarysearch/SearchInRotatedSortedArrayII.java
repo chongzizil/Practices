@@ -1,7 +1,9 @@
-package com.zil.li.array;
+package com.zil.li.binarysearch;
 
 /**
  * Created by youlongli on 2/2/15.
+ *
+ * https://oj.leetcode.com/problems/search-in-rotated-sorted-array-ii/
  */
 public class SearchInRotatedSortedArrayII {
   /**
@@ -15,33 +17,30 @@ public class SearchInRotatedSortedArrayII {
     while (l + 1 < r) {
       int mid = l + (r - l) / 2;
 
-      if (target == A[mid]) {
+      if (A[mid] == target) {
         return true;
       }
 
-      if (A[l] < A[mid]) { // Left is sorted
-        if (A[l] <= target && target <= A[mid]) {
-          r = mid;
-        } else {
-          l = mid;
-        }
-      } else if (A[l] > A[mid]) { // Right is sorted
+      if (A[mid] < A[r]) { // Right is sorted
         if (A[mid] <= target && target <= A[r]) {
           l = mid;
         } else {
           r = mid;
         }
-      } else if (A[l] == A[mid]) {
-        l++;
+      } else if (A[mid] > A[r]) { // Right is not sorted
+        if (A[l] <= target && target <= A[mid]) {
+          r = mid;
+        } else {
+          l = mid;
+        }
+      } else {
+        r--;
       }
     }
 
-    if (A[l] == target || A[r] == target) {
-      return true;
-    }
-
-    return false;
+    return A[l] == target || A[r] == target;
   }
+
   /**
    * The main problem is when A[low] = A[mid], there's no way to tell whether numbers from low to mid are ascending...
    * Say low = 0 and mid = 3 e.g. 1). 1211  2:11112111

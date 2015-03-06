@@ -12,7 +12,58 @@ import java.util.Deque;
  * Idea: BFS.
  */
 public class PopulatingNextRightPointersInEachNode {
+  /**
+   * Use two pointers.
+   * Time complexity: O(n)
+   * Space complexity: O(1)
+   */
   public void solutionA(TreeLinkNode root) {
+    TreeLinkNode start = root; // Always point to the start of a level
+
+    while (start != null && start.left != null) {
+      TreeLinkNode curr = start;
+      // Start from the left to the right. Construct the below level links.
+      while (curr != null) {
+        curr.left.next = curr.right;
+        curr.right.next = curr.next == null ? null : curr.next.left; // Note: check
+        curr = curr.next;
+      }
+
+      start = start.left;
+    }
+  }
+
+  /**
+   * Recursive
+   * Time complexity: O(n)
+   * Space complexity: O(h) (stack)
+   */
+  public void solutionB(TreeLinkNode root) {
+    helper(root);
+  }
+
+  private void helper(TreeLinkNode node) {
+    if (node == null) {
+      return;
+    }
+
+    if (node.left != null) {
+      node.left.next = node.right;
+    }
+
+    if (node.right != null) {
+      node.right.next = node.next == null ? null : node.next.left;
+    }
+
+    helper(node.left);
+    helper(node.right);
+  }
+
+  /**
+   * Time complexity: O(n)
+   * Space complexity: O(n)
+   */
+  public void solutionC(TreeLinkNode root) {
     Deque<TreeLinkNode> queue = new ArrayDeque<TreeLinkNode>();
 
     if (root == null) {

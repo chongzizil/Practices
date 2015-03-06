@@ -34,19 +34,18 @@ public class BinaryTreeUpsideDown {
     return newRoot;
   }
 
-  private TreeNode helper(TreeNode root) {
-    if (root == null) {
-      return null;
-    }
-    if (root.left == null && root.right == null) {
-      return root;
+  private TreeNode helper(TreeNode node) {
+    if (node.left == null) { // No need to check right for a leaf node
+      return node;
     }
 
-    TreeNode parent = helper(root.left);
-    parent.left = root.right;
-    parent.right = root;
-    root.left = null;
-    root.right = null;
+    TreeNode parent = helper(node.left);
+    TreeNode right = node.right;
+    node.left = null;
+    node.right = null;
+
+    parent.left = right;
+    parent.right = node;
 
     return parent.right;
   }

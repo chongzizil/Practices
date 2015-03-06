@@ -10,25 +10,30 @@ import com.zil.li.datastructure.TreeNode;
 public class SymmetricTree {
   /**
    * runtime: 255ms
+   * Time complexity: O(n)
+   * Space complexity: O(1)
    */
   public boolean isSymmetric(TreeNode root) {
     if (root == null) {
       return true;
     }
+
     return helper(root.left, root.right);
   }
 
-  private boolean helper(TreeNode l, TreeNode r) {
-    if (l == null ^ r == null) {
-      return false;
-    }
-    if (l == null && r == null) {
-      return true;
-    }
-    if (l.val != r.val) {
+  private boolean helper(TreeNode left, TreeNode right) {
+    if (left == null ^ right == null) {
       return false;
     }
 
-    return helper(l.left, r.right) && helper(l.right, r.left);
+    if (left == null && right == null) {
+      return true;
+    }
+
+    if (left.val != right.val) {
+      return false;
+    }
+
+    return helper(left.left, right.right) && helper(left.right, right.left);
   }
 }

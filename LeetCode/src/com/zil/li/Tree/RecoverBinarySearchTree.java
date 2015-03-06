@@ -34,6 +34,7 @@ public class RecoverBinarySearchTree {
       if (first == null) {
         first = prev;
       }
+      // Note: Do not use if-else. In case the second will throw null pointer exception.
       if (first != null) {
         second = root;
       }

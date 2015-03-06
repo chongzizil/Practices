@@ -10,6 +10,8 @@ import com.zil.li.datastructure.TreeNode;
 public class BalancedBinaryTree {
   /**
    * Runtime: 272 ms
+   * Time complexity: O(n)
+   * Space complexity: O(1)
    */
   public boolean solution(TreeNode root) {
     return getMaxDepth(root) != -1;

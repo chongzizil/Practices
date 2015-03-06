@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class UniqueBinarySearchTreesII {
   public List<TreeNode> generateTrees(int n) {
-    return helper(1, n);
+    return helper(1, n); // Start from 1 instead of 0.
   }
 
   private List<TreeNode> helper(int start, int end) {

@@ -8,6 +8,10 @@ import com.zil.li.datastructure.TreeNode;
  * https://oj.leetcode.com/problems/minimum-depth-of-binary-tree/
  */
 public class MinimumDepthOfBinaryTree {
+  /**
+   * Time complexity: O(n)
+   * Space complexity: O(1)
+   */
   public int minDepth(TreeNode root) {
     if (root == null) {
       return 0;
@@ -17,6 +21,7 @@ public class MinimumDepthOfBinaryTree {
 
   private int helper(TreeNode root) {
     if (root == null) {
+      // NOTE: Set the invalid/null node as Integer.MAX_VALUE.
       return Integer.MAX_VALUE;
     }
 

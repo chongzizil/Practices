@@ -36,6 +36,7 @@ public class ValidateBinarySearchTree {
       return res;
     }
 
+    // NOTE: Need to check if the child is null, because the node itself might has MAX or MIN value.
     if (root.left != null && left.max >= root.val) {
       res.isValid = false;
       return res;

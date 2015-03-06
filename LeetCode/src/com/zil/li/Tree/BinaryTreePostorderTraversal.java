@@ -38,8 +38,7 @@ public class BinaryTreePostorderTraversal {
     }
 
     while (!output.isEmpty()) {
-      TreeNode node = output.pop();
-      res.add(node.val);
+      res.add(output.pop().val);
     }
 
     return res;

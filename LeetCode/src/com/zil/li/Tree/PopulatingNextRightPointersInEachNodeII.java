@@ -13,7 +13,43 @@ import java.util.List;
  * https://oj.leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/
  */
 public class PopulatingNextRightPointersInEachNodeII {
+  /**
+   * Time complexity: O(n)
+   * Space complexity: O(1)
+   */
   public void solutionA(TreeLinkNode root) {
+    TreeLinkNode start = root;
+
+    while (start != null) {
+      // Use a dummy node
+      TreeLinkNode dummy = new TreeLinkNode(0);
+      // The previous node in the same level
+      TreeLinkNode prev = dummy;
+      TreeLinkNode curr = start;
+
+      while(curr != null) { // No need to check left child since it might be null
+        if (curr.left != null) {
+          prev.next = curr.left;
+          prev = curr.left;
+        }
+
+        if (curr.right != null) {
+          prev.next = curr.right;
+          prev = curr.right;
+        }
+        curr = curr.next;
+      }
+
+      // Get the leftmost child node in the next level
+      start = dummy.next;
+    }
+  }
+
+  /**
+   * Time complexity: O(n)
+   * Space complexity: O(n)
+   */
+  public void solutionB(TreeLinkNode root) {
     Deque<TreeLinkNode> queue = new ArrayDeque<TreeLinkNode>();
 
     if (root == null) {
@@ -41,7 +77,7 @@ public class PopulatingNextRightPointersInEachNodeII {
     }
   }
 
-  public void solutionB(TreeLinkNode root) {
+  public void solutionC(TreeLinkNode root) {
     if (root == null) {
       return;
     }

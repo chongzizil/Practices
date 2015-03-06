@@ -8,6 +8,11 @@ import com.zil.li.datastructure.TreeNode;
  * https://oj.leetcode.com/problems/path-sum/
  */
 public class PathSum {
+  /**
+   * DFS...
+   * Time complexity: O(n)
+   * Space complexity: O(1)
+   */
   public boolean solutionA(TreeNode root, int sum) {
     if (root == null) {
       return false;

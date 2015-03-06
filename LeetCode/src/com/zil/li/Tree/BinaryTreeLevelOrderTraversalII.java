@@ -14,25 +14,26 @@ import java.util.List;
  */
 public class BinaryTreeLevelOrderTraversalII {
   /**
-   * runtime: 264 ms
+   * runtime: 270 ms
+   * Time complexity: O(n)
+   * Space complexity: O(1)
    */
   public List<List<Integer>> levelOrderBottom(TreeNode root) {
-    List<List<Integer>> tmp = new ArrayList<List<Integer>>();
+    List<List<Integer>> res = new ArrayList<List<Integer>>();
     Deque<TreeNode> queue = new ArrayDeque<TreeNode>();
 
     if (root == null) {
-      return tmp;
+      return res;
     }
 
     queue.addLast(root);
 
     while (!queue.isEmpty()) {
-      List<Integer> tmpList = new ArrayList<Integer>();
+      List<Integer> level = new ArrayList<Integer>();
       int size = queue.size();
-
       for (int i = 0; i < size; i++) {
         TreeNode node = queue.pollFirst();
-        tmpList.add(node.val);
+        level.add(node.val);
         if (node.left != null) {
           queue.addLast(node.left);
         }
@@ -40,17 +41,20 @@ public class BinaryTreeLevelOrderTraversalII {
           queue.addLast(node.right);
         }
       }
-
-      tmp.add(tmpList);
+      res.add(level);
     }
 
-    List<List<Integer>> res = new ArrayList<List<Integer>>();
-    for (int i = tmp.size() - 1; i >= 0; i--) {
-      res.add(tmp.get(i));
-    }
+    // Reverse the list...
+    reverseList(res);
 
     return res;
   }
 
-
+  private void reverseList(List<List<Integer>> res) {
+    for (int i = 0, j = res.size() - 1; i < j; i++, j--) {
+      List<Integer> tmpLevel = res.get(i);
+      res.set(i, res.get(j));
+      res.set(j, tmpLevel);
+    }
+  }
 }

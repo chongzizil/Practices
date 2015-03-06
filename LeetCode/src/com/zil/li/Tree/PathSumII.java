@@ -13,29 +13,31 @@ import java.util.List;
  * Idea: Use backtracking...
  */
 public class PathSumII {
+  /**
+   * Time complexity: O(n)
+   * Space complexity: O(1)
+   */
   public List<List<Integer>> pathSum(TreeNode root, int sum) {
     List<List<Integer>> res = new ArrayList<List<Integer>>();
     List<Integer> list = new ArrayList<Integer>();
 
-    helper(res, list, root, sum);
+    dfs(res, list, root, sum);
 
     return res;
   }
 
-  private void helper(List<List<Integer>> res, List<Integer> list, TreeNode root, int sum) {
-    if (root == null) {
+  private void dfs(List<List<Integer>> res, List<Integer> list, TreeNode node, int restSum) {
+    if (node == null) {
       return;
     }
 
-    list.add(root.val);
-
-    if (root.left == null && root.right == null && root.val == sum) {
-      res.add(new ArrayList<Integer>(list));
+    list.add(node.val);
+    if (node.left == null && node.right == null && node.val == restSum) {
+      res.add(new ArrayList<Integer>(list)); // Note: copy the list!
     }
 
-    helper(res, list, root.left, sum - root.val);
-    helper(res, list, root.right, sum - root.val);
-
+    dfs(res, list, node.left, restSum - node.val);
+    dfs(res, list, node.right, restSum - node.val);
     list.remove(list.size() - 1);
   }
 }

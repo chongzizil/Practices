@@ -12,22 +12,20 @@ public class SumRootToLeafNumbers {
    * Runtime: 202 ms
    */
   public int solutionA(TreeNode root) {
-    if (root == null) {
-      return 0;
-    }
-
-    return helperA(root, 0);
+    return helper(root, 0);
   }
 
-  private int helperA(TreeNode root, int num) {
+  private int helper(TreeNode root, int sum) {
     if (root == null) {
       return 0;
     }
-    int newNum = num * 10 + root.val;
+
+    sum = sum * 10 + root.val; // calculate the current sum first
     if (root.left == null && root.right == null) {
-      return newNum;
+      return sum; // left node
     }
-    return helperA(root.left, newNum) + helperA(root.right, newNum);
+
+    return helper(root.left, sum) + helper(root.right, sum);
   }
 
   /**

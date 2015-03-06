@@ -8,6 +8,10 @@ import com.zil.li.datastructure.TreeNode;
  * https://oj.leetcode.com/problems/convert-sorted-array-to-binary-search-tree/
  */
 public class ConvertSortedArrayToBinarySearchTree {
+  /**
+   * Time complexity: O(n)
+   * Space complexity: O(1)
+   */
   public TreeNode sortedArrayToBST(int[] num) {
     if (num == null) {
       return null;
@@ -22,11 +26,10 @@ public class ConvertSortedArrayToBinarySearchTree {
     }
 
     int mid = l + (r - l) / 2;
-
-    TreeNode root = new TreeNode(num[mid]);
     TreeNode left = helper(num, l, mid - 1);
     TreeNode right = helper(num, mid + 1, r);
 
+    TreeNode root = new TreeNode(num[mid]);
     root.left = left;
     root.right = right;
 

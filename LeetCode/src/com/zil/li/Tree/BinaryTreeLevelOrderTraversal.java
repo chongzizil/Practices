@@ -13,6 +13,11 @@ import java.util.List;
  * https://oj.leetcode.com/problems/binary-tree-level-order-traversal/
  */
 public class BinaryTreeLevelOrderTraversal {
+  /**
+   * Use BFS.
+   * Time complexity: O(n)
+   * Space complexity: O(1)
+   */
   public List<List<Integer>> levelOrder(TreeNode root) {
     List<List<Integer>> res = new ArrayList<List<Integer>>();
     Deque<TreeNode> queue = new ArrayDeque<TreeNode>();

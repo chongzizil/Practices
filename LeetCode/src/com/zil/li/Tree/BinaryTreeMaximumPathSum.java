@@ -23,9 +23,9 @@ public class BinaryTreeMaximumPathSum {
   private class Result {
     int max;
     int maxSingle;
-    public Result(int max, int maxSingle) {
-      this.max = max;
-      this.maxSingle = maxSingle;
+    public Result() {
+      max = Integer.MIN_VALUE;
+      maxSingle = Integer.MIN_VALUE;
     }
   }
 
@@ -33,24 +33,23 @@ public class BinaryTreeMaximumPathSum {
     return helper(root).max;
   }
 
-  private Result helper(TreeNode root) {
-    Result res = new Result(Integer.MIN_VALUE, Integer.MIN_VALUE);
-    if (root == null) {
+  private Result helper(TreeNode node) {
+    Result res = new Result();
+
+    if (node == null) {
       return res;
     }
 
-    Result leftRes = helper(root.left);
-    Result rightRes = helper(root.right);
+    Result l = helper(node.left);
+    Result r = helper(node.right);
 
-    int cross = root.val;
-    cross += Math.max(0, leftRes.maxSingle);
-    cross += Math.max(0, rightRes.maxSingle);
+    int cross = node.val;
+    cross += Math.max(0, l.maxSingle);
+    cross += Math.max(0, r.maxSingle);
 
-    res.maxSingle = Math.max(leftRes.maxSingle, rightRes.maxSingle);
-    res.maxSingle = Math.max(0, res.maxSingle) + root.val;
+    res.max = Math.max(cross, Math.max(l.max, r.max));
+    res.maxSingle = Math.max(0, Math.max(l.maxSingle, r.maxSingle)) + node.val;
 
-    res.max = Math.max(leftRes.max, rightRes.max);
-    res.max = Math.max(res.max, cross);
     return res;
   }
 }

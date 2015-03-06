@@ -10,6 +10,8 @@ import com.zil.li.datastructure.TreeNode;
 public class MaximumDepthOfBinaryTree {
   /**
    * runtime: 280 ms
+   * Time complexity: O(n)
+   * Space complexity: O(1)
    */
   public int maxDepth(TreeNode root) {
     if (root == null) {

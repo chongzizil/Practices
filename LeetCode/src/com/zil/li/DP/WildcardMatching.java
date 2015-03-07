@@ -3,6 +3,9 @@ package com.zil.li.DP;
 /**
  * Created by youlongli on 2/26/15.
  *
+ * https://oj.leetcode.com/problems/wildcard-matching/
+ *
+ *
  * Idea: Two pointers.. If encounter *, move j to a non * position, remember the pointers and then try. If not match, move i back +1 position and try again.
  */
 public class WildcardMatching {
@@ -25,11 +28,11 @@ public class WildcardMatching {
         j++;
       } else if (j < lenP && p.charAt(j) == '*') {
         while (j < lenP && p.charAt(j) == '*') {
-          j++;
+          j++; // Skip all neighbor *
         }
 
         if (j == lenP) {
-          return true;
+          return true; // Remember to check
         }
 
         back = true;
@@ -44,10 +47,10 @@ public class WildcardMatching {
     }
 
     while (j < lenP && p.charAt(j) == '*') {
-      j++;
+      j++; // Skip all the rest of *, remember to check
     }
 
-    return i == lenS && j == lenP;
+    return j == lenP; // No need to check i because of the while loop
   }
 
   private boolean matchChar(char c, char p) {

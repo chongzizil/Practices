@@ -5,6 +5,8 @@ import java.util.List;
 
 /**
  * Created by youlongli on 3/2/15.
+ *
+ * https://oj.leetcode.com/problems/generate-parentheses/
  */
 public class GenerateParentheses {
   public List<String> solutionA(int n) {
@@ -17,7 +19,7 @@ public class GenerateParentheses {
   }
 
   private void helperA(List<String> res, StringBuilder sb, int l, int r) {
-    if (l > r || l < 0 || r < 0) {
+    if (l > r || l < 0 || r < 0) { // Note: check the index! Otherwise will cause stack over flow...
       return;
     }
 

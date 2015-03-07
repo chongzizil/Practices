@@ -6,6 +6,8 @@ import java.util.List;
 
 /**
  * Created by youlongli on 2/28/15.
+ *
+ * https://oj.leetcode.com/problems/combination-sum-ii/
  */
 public class CombinationSumII {
   public List<List<Integer>> combinationSum2(int[] num, int target) {
@@ -26,7 +28,6 @@ public class CombinationSumII {
   private void search(List<List<Integer>> res, List<Integer> list, int[] num, int sum, int target, int pos) {
     if (sum == target) {
       res.add(new ArrayList<Integer>(list));
-      return;
     }
 
     for (int i = pos; i < num.length; i++) {

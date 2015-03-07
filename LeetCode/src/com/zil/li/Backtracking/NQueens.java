@@ -5,61 +5,62 @@ import java.util.List;
 
 /**
  * Created by youlongli on 2/28/15.
+ *
+ * https://oj.leetcode.com/problems/n-queens/
  */
 public class NQueens {
   public List<String[]> solveNQueens(int n) {
     List<String[]> res = new ArrayList<String[]>();
-    if (n <= 0) {
-      return res;
-    }
+    int[] cols = new int[n]; // column position of each rows
 
-    search(res, new ArrayList<Integer>(), n);
+    helper(res, cols, 0, n);
+
     return res;
   }
 
-  private void search(List<String[]> res, List<Integer> cols, int n) {
-    if (cols.size() == n) {
-      res.add(drawChessBoard(cols));
-      return;
+  private void helper(List<String[]> res, int[] cols, int row, int n) {
+    if (row == n) {
+      res.add(drawBoard(cols, n));
     }
 
-    for (int col = 0; col < n; col++) {
-      if (isValid(cols, col)) {
-        cols.add(col);
-        search(res, cols, n);
-        cols.remove(cols.size() - 1);
+    for (int i = 0; i < n; i++) {
+      if (isValid(cols, row, i)) {
+        cols[row] = i;
+        helper(res, cols, row + 1, n);
+        cols[row] = -1; // No need to reset it actually... Since we also pass the current row index.
       }
     }
   }
 
-  private String[] drawChessBoard(List<Integer> cols) {
-    String[] chessboard = new String[cols.size()];
-    for (int i = 0; i < cols.size(); i++) {
-      chessboard[i] = "";
-      for (int j = 0; j < cols.size(); j++) {
-        if (j == cols.get(i)) {
-          chessboard[i] += "Q";
-        } else {
-          chessboard[i] += ".";
-        }
-      }
-    }
-
-    return chessboard;
-  }
-
-  private boolean isValid(List<Integer> cols, int col) {
-    int row = cols.size();
+  private boolean isValid(int[] cols, int row, int col) {
     for (int i = 0; i < row; i++) {
-      // same column
-      if (cols.get(i)== col)  {
+      // Vertically
+      if (cols[i] == col) {
         return false;
       }
-
-      if (Math.abs(i - row) == Math.abs(cols.get(i) - col)) {
+      // Diagonally
+      if (Math.abs(row - i) == Math.abs(cols[i] - col)) {
         return false;
       }
     }
+
     return true;
+  }
+
+  private String[] drawBoard(int[] cols, int n) {
+    String[] res = new String[n];
+    for (int i = 0; i < n; i++) {
+      StringBuilder sb = new StringBuilder();
+      for (int j = 0; j < cols[i]; j++) {
+        sb.append('.');
+      }
+      sb.append('Q');
+      for (int j = cols[i] + 1; j < n; j++) {
+        sb.append('.');
+      }
+      res[i] = sb.toString();
+    }
+
+    return res;
   }
 }

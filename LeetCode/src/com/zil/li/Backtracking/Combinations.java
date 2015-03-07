@@ -13,6 +13,7 @@ public class Combinations {
     List<List<Integer>> res = new ArrayList<List<Integer>>();
     List<Integer> list = new ArrayList<Integer>();
 
+    // Note: start from 1
     helper(res, list, n, k, 1);
 
     return res;
@@ -21,9 +22,9 @@ public class Combinations {
   private void helper(List<List<Integer>> res, List<Integer> list, int n, int k, int pos) {
     if (list.size() == k) {
       res.add(new ArrayList<Integer>(list));
-      return;
     }
 
+    // Note: End at n
     for (int i = pos; i <= n; i++) {
       list.add(i);
       helper(res, list, n, k, i + 1);

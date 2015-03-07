@@ -2,6 +2,8 @@ package com.zil.li.DP;
 
 /**
  * Created by youlongli on 2/26/15.
+ *
+ * https://oj.leetcode.com/problems/regular-expression-matching/
  */
 public class RegularExpressionMatching {
   public boolean isMatch(String s, String p) {

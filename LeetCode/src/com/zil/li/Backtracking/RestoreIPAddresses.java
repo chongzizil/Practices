@@ -13,8 +13,8 @@ public class RestoreIPAddresses {
     List<String> res = new ArrayList<String>();
     List<String> list = new ArrayList<String>();
 
-    if (s == null || s.length() < 4 || s.length() > 16) {
-      return new ArrayList<String>();
+    if (s == null || s.length() < 4 || s.length() > 12) {
+      return res;
     }
 
     helper(res, list, s, 0);
@@ -22,35 +22,31 @@ public class RestoreIPAddresses {
     return res;
   }
 
-  private void helper(List<String> res, List<String> list, String s, int beg) {
-    if (list.size() == 4) {
-      if (s.length() != beg) return;
-
+  private void helper(List<String> res, List<String> list, String s, int pos) {
+    if (list.size() == 4 && pos == s.length()) {
       StringBuilder sb = new StringBuilder();
-      for (String part : list) {
-        sb.append(part);
-        sb.append(".");
+      for (String str : list) {
+        sb.append(str);
+        sb.append('.');
       }
       sb.setLength(sb.length() - 1);
       res.add(sb.toString());
-      return;
     }
 
-    for (int i = beg; i <= beg + 3 && i < s.length(); i++) {
-      String num = s.substring(beg, i + 1);
-      if (isValid(num)) {
-        list.add(num);
+    for (int i = pos; i < s.length() && i < pos + 3; i++) {
+      if (isValid(s.substring(pos, i + 1))) {
+        list.add(s.substring(pos, i + 1));
         helper(res, list, s, i + 1);
         list.remove(list.size() - 1);
       }
     }
   }
 
-  private boolean isValid(String str) {
-    if (str.charAt(0) == '0') {
-      return str.equals("0");
+  private boolean isValid(String s) {
+    if (s.charAt(0) == '0') {
+      return s.equals("0"); // e.g. 011 is not valid.
     }
-    int num = Integer.parseInt(str);
-    return num >= 0 && num <= 255;
+    int num = Integer.parseInt(s);
+    return num < 256;
   }
 }

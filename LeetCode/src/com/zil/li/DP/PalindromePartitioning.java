@@ -5,6 +5,8 @@ import java.util.List;
 
 /**
  * Created by youlongli on 2/26/15.
+ *
+ * https://oj.leetcode.com/problems/palindrome-partitioning/
  */
 public class PalindromePartitioning {
   public List<List<String>> partition(String s) {
@@ -32,7 +34,7 @@ public class PalindromePartitioning {
         if (l == 1) {
           res[i][j] = true;
         } else {
-          res[i][j] = s.charAt(i) == s.charAt(j) && (l <= 2 || res[i + 1][j - 1]);
+          res[i][j] = s.charAt(i) == s.charAt(j) && (l == 2 || res[i + 1][j - 1]);
         }
       }
     }

@@ -1,4 +1,4 @@
-package com.zil.li.array;
+package com.zil.li.Backtracking;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,6 +6,8 @@ import java.util.List;
 
 /**
  * Created by youlongli on 1/31/15.
+ *
+ * https://oj.leetcode.com/problems/subsets/
  */
 public class Subsets {
   /**

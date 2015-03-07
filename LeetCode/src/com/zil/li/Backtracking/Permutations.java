@@ -5,6 +5,8 @@ import java.util.List;
 
 /**
  * Created by youlongli on 2/1/15.
+ *
+ * https://oj.leetcode.com/problems/permutations/
  */
 public class Permutations {
   /**

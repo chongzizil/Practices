@@ -6,6 +6,8 @@ import java.util.List;
 
 /**
  * Created by youlongli on 2/28/15.
+ *
+ * https://oj.leetcode.com/problems/combination-sum/
  */
 public class CombinationSum {
   /**
@@ -29,7 +31,6 @@ public class CombinationSum {
   private void searchA(List<List<Integer>> res, List<Integer> list, int[] candidates, int target, int pos) {
     if (target == 0) {
       res.add(new ArrayList<Integer>(list));
-      return;
     }
 
     for (int i = pos; i < candidates.length; i++) {

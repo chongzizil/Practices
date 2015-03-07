@@ -5,23 +5,20 @@ import java.util.List;
 
 /**
  * Created by youlongli on 3/2/15.
+ *
+ * https://oj.leetcode.com/problems/word-search/
  */
 public class WordSearch {
   /**
    * One cleaner solution without using global variable and more space.
    */
-  public boolean exist(char[][] board, String word) {
-    if (board == null || board.length == 0 || word.length() == 0) {
-      return false;
-    }
-
+  public boolean solutionA(char[][] board, String word) {
     int m = board.length;
     int n = board[0].length;
-    List<Character> chars = new ArrayList<Character>();
 
     for (int i = 0; i < m; i++) {
       for (int j = 0; j < n; j++) {
-        if (helper(board, word, chars, i, j)) {
+        if (search(board, word, 0, i, j)) {
           return true;
         }
       }
@@ -30,30 +27,31 @@ public class WordSearch {
     return false;
   }
 
-  private boolean helper(char[][] board, String word, List<Character> chars, int i, int j) {
+  /**
+   * @param i the current index of the word
+   */
+  private boolean search(char[][] board, String word, int i, int row, int col) {
     int m = board.length;
     int n = board[0].length;
 
-    // Note: Check the index first!
-    if (i < 0 || i >= m || j < 0 || j >= n
-        || board[i][j] != word.charAt(chars.size())
-        || board[i][j] == '#') {
+    if (row < 0 || row >= m || col < 0 || col >= n || board[row][col] == '#') {
       return false;
     }
 
-    chars.add(board[i][j]);
-    board[i][j] = '#'; // Visited
-    if (chars.size() == word.length()) {
+    if (board[row][col] != word.charAt(i)) {
+      return false;
+    }
+
+    if (i == word.length() - 1) {
       return true;
     }
 
-    boolean res = helper(board, word, chars, i, j - 1)
-        || helper(board, word, chars, i, j + 1)
-        || helper(board, word, chars, i - 1, j)
-        || helper(board, word, chars, i + 1, j);
-
-    board[i][j] = chars.get(chars.size() - 1);
-    chars.remove(chars.size() - 1);
+    board[row][col] = '#';
+    boolean res = search(board, word, i + 1, row - 1, col)
+        || search(board, word, i + 1, row + 1, col)
+        || search(board, word, i + 1, row, col - 1)
+        || search(board, word, i + 1, row, col + 1);
+    board[row][col] = word.charAt(i);
     return res;
   }
 

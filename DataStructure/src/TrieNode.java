@@ -8,6 +8,7 @@ import java.util.Collection;
 public class TrieNode {
   public int numChildren = 0;
   public boolean isWord = false;
+
   private TrieNode[] children = new TrieNode[26];
 
   public TrieNode() {
@@ -20,22 +21,23 @@ public class TrieNode {
   }
 
   public boolean add(String s) {
-    char first = s.charAt(0);
-    int index = first - 'a';
-    TrieNode child = children[index];
-    if (child == null) {
-      child = new TrieNode();
-      children[index] = child;
-      numChildren++;
-    }
-    if (s.length() == 1) {
-      if (child.isWord) {
-        return false;
+    TrieNode curr = this;
+
+    for (int i = 0; i < s.length(); i++) {
+      char c = s.charAt(i);
+      int index = c - 'a';
+      if (curr.children[index] == null) {
+        curr.children[index] = new TrieNode();
       }
-      child.isWord = true;
-      return true;
+      curr.numChildren++;
+      curr = curr.children[index];
+    }
+
+    if (curr.isWord) {
+      return false;
     } else {
-      return child.add(s.substring(1));
+      curr.isWord = true;
+      return true;
     }
   }
 
@@ -45,16 +47,15 @@ public class TrieNode {
   }
 
   public TrieNode getNode(String s) {
-    TrieNode node = this;
+    TrieNode curr = this;
     for (int i = 0; i < s.length(); i++) {
-      int index = s.charAt(i) - 1;
-      TrieNode child = node.children[index];
-      if (child == null) {
+      int index = s.charAt(i) - 'a';
+      curr = curr.children[index];
+      if (curr == null) {
         return null;
       }
-      node = child;
     }
-    return node;
+    return curr;
   }
 
   public boolean contains(String s) {

@@ -2,6 +2,8 @@ package com.zil.li.DP;
 
 /**
  * Created by youlongli on 2/22/15.
+ *
+ * https://oj.leetcode.com/problems/decode-ways/
  */
 public class DecodeWays {
   public int numDecodings(String s) {
@@ -13,7 +15,7 @@ public class DecodeWays {
     int[] dp = new int[n + 1];
 
     dp[0] = 1;
-    dp[1] = s.charAt(0) == '0' ? 0 : 1;
+    dp[1] = s.charAt(0) == '0' ? 0 : 1; // Note: need to also set dp[1], otherwise s.charAt(i - 2) will throw exception
 
     for (int i = 2; i <= n; i++) {
       if (s.charAt(i - 1) != '0') {

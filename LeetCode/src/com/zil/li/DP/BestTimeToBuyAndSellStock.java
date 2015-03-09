@@ -7,7 +7,7 @@ package com.zil.li.DP;
  */
 public class BestTimeToBuyAndSellStock {
   public int maxProfit(int[] prices) {
-    if (prices == null || prices.length == 0) {
+    if (prices == null || prices.length == 0) { // Note: prices.length should be at least 1
       return 0;
     }
 
@@ -15,8 +15,8 @@ public class BestTimeToBuyAndSellStock {
     int min = prices[0];
 
     for (int i = 1; i < prices.length; i++) {
-      min = prices[i] < min ? prices[i] : min;
-      res = Math.max(prices[i] - min, res);
+      res = Math.max(res, prices[i] - min);
+      min = Math.min(min, prices[i]);
     }
 
     return res;

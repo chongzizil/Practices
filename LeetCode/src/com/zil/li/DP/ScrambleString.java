@@ -14,47 +14,50 @@ public class ScrambleString {
     }
 
     int n = s1.length();
-    int[][][] dp = new int[n][n][n];
+    int[][][] mem = new int[n][n][n];
 
     for (int i = 0; i < n; i++) {
       for (int j = 0; j < n; j++) {
         for (int k = 0; k < n; k++) {
-          // Initial setting
-          dp[i][j][k] = -1;
+          mem[i][j][k] = -1; // Initial set
         }
       }
     }
 
-    return check(s1, 0, s2, 0, dp, n);
+    return helper(s1, s2, 0, 0, n, mem);
   }
 
-  private boolean check(String s1, int index1, String s2, int index2, int[][][] dp, int len) {
+  private boolean helper(String s1, String s2, int i, int j, int len, int[][][] mem) {
+    if (mem[i][j][len - 1] != -1) {
+      return mem[i][j][len - 1] == 1;
+    }
+
     if (len == 1) {
-      return s1.charAt(index1) == s2.charAt(index2);
+      return s1.charAt(i) == s2.charAt(j);
     }
 
-    // Be careful... Use len - 1 instead of len!
-    int res = dp[index1][index2][len - 1];
-    if (res != -1) {
-      // true: 1
-      return res == 1;
+    // First check if the two string are identical, although without this part the code still works.
+    if (s1.substring(i, i + len).equals(s2.substring(j, j + len))) {
+      mem[i][j][len - 1] = 1;
+      return mem[i][j][len - 1] == 1;
     }
 
-    dp[index1][index2][len - 1] = 0;
-    for (int i = 1; i < len; i++) {
-      if (check(s1, index1, s2, index2, dp, i)
-          && check(s1, index1 + i, s2, index2 + i, dp, len - i)) {
-        dp[index1][index2][len - 1] = 1;
-        break;
+    mem[i][j][len - 1] = 0;
+
+    for (int l = 1; l < len; l++) {
+      // Left-Left, Right-Right
+      if (helper(s1, s2, i, j, l, mem) && helper(s1, s2, i + l, j + l, len - l, mem)) {
+        mem[i][j][len - 1] = 1;
+        return mem[i][j][len - 1] == 1;
       }
 
-      if (check(s1, index1, s2, index2 + len - i, dp, i)
-          && check(s1, index1 + i, s2, index2, dp, len - i)) {
-        dp[index1][index2][len - 1] = 1;
-        break;
+      // Left-Right, Left-Right
+      if (helper(s1, s2, i, j + len - l, l, mem) && helper(s1, s2, i + l, j, len - l, mem)) {
+        mem[i][j][len - 1] = 1;
+        return mem[i][j][len - 1] == 1;
       }
     }
 
-    return dp[index1][index2][len - 1] == 1;
+    return mem[i][j][len - 1] == 1;
   }
 }

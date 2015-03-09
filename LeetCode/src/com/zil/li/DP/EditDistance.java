@@ -2,6 +2,8 @@ package com.zil.li.DP;
 
 /**
  * Created by youlongli on 2/24/15.
+ *
+ * https://oj.leetcode.com/problems/edit-distance/
  */
 public class EditDistance {
   public int minDistance(String word1, String word2) {

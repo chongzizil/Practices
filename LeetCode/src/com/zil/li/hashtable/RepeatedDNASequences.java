@@ -1,4 +1,4 @@
-package com.zil.li.hashmap;
+package com.zil.li.hashtable;
 
 import java.util.*;
 

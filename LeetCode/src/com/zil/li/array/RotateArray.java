@@ -2,31 +2,30 @@ package com.zil.li.array;
 
 /**
  * Created by youlongli on 3/2/15.
+ *
+ * https://oj.leetcode.com/problems/rotate-array/
  */
 public class RotateArray {
   /**
+   * Triple reverse, easy, in place and efficient.
    * Time complexity: O(n)
    * Space complexity: O(1)
    */
   public void solutionA(int[] nums, int k) {
     int n = nums.length;
+
     k = k % n;
 
-    if (k == 0) {
-      return;
-    }
+    reverse(nums, 0, n - k - 1);
+    reverse(nums, n - k, n - 1);
+    reverse(nums, 0, n - 1);
+  }
 
-    int i = 0;
-    int j = 0;
-    int next = nums[0];
-    int count = 0;
-    while (count != nums.length) {
-      j = (i + k) % n;
-      int tmp = nums[j];
-      nums[j] = next;
-      next = tmp;
-      i = j;
-      count++;
+  private void reverse(int[] nums, int beg, int end) {
+    for (int i = beg, j = end; i < j; i++, j--) {
+      int tmp = nums[i];
+      nums[i] = nums[j];
+      nums[j] = tmp;
     }
   }
 

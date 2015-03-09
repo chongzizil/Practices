@@ -6,7 +6,7 @@ import java.util.*;
 
 import static org.junit.Assert.*;
 
-public class MinHeapTest extends TestCase {
+public class MinHeapTest {
   @Test
   public void smallTest() throws Exception {
     MinHeap minHeap = new MinHeap();

@@ -2,6 +2,8 @@ package com.zil.li.DP;
 
 /**
  * Created by youlongli on 2/22/15.
+ *
+ * https://oj.leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/
  */
 public class BestTimeToBuyAndSellStockIII {
   /**
@@ -15,26 +17,26 @@ public class BestTimeToBuyAndSellStockIII {
     }
 
     int n = prices.length;
-    int[] left = new int[n];
-    int[] right = new int[n];
-
+    int[] l = new int[n];
+    int[] r = new int[n];
     int min = prices[0];
-    left[0] = 0;
-    for (int i = 1; i < n; i++) {
-      left[i] = Math.max(prices[i] - min, left[i - 1]);
-      min = Math.min(prices[i], min);
-    }
-
     int max = prices[n - 1];
-    right[n - 1] = 0;
-    for (int i = n - 2; i >= 0; i--) {
-      right[i] = Math.max(max - prices[i], right[i + 1]);
-      max = Math.max(prices[i], max);
+    int res = 0;
+
+    // Left part
+    for (int i = 1; i < n; i++) {
+      l[i] = Math.max(l[i - 1], prices[i] - min);
+      min = Math.min(min, prices[i]);
     }
 
-    int res = 0;
+    // Right part
+    for (int i = n - 2; i >= 0; i--) {
+      r[i] = Math.max(r[i + 1], max - prices[i]);
+      max = Math.max(max, prices[i]);
+    }
+
     for (int i = 0; i < n; i++) {
-      res = Math.max(res, left[i] + right[i]);
+      res = Math.max(res, l[i] + r[i]);
     }
 
     return res;

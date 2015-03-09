@@ -32,12 +32,12 @@ public class WildcardMatching {
         }
 
         if (j == lenP) {
-          return true; // Remember to check
+          return true; // Remember to check if * cover all sequence of s
         }
 
         back = true;
         memI = i;
-        memJ = j;
+        memJ = j; // j is pointing to a none * character now
       } else if (back) {
         i = ++memI;
         j = memJ;

@@ -4,6 +4,8 @@ import java.util.List;
 
 /**
  * Created by youlongli on 2/22/15.
+ *
+ * https://oj.leetcode.com/problems/triangle/
  */
 public class Triangle {
   /**

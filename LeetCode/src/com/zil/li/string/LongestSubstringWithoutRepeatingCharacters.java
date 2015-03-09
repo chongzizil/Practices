@@ -20,22 +20,22 @@ public class LongestSubstringWithoutRepeatingCharacters {
     }
 
     int res = 0;
-    int start = 0;
-    int[] map = new int[256]; // Stores the index of the last appearance of that character
+    int n = s.length();
+    int[] map = new int[128];
 
     Arrays.fill(map, -1);
-    for (int i = 0; i < s.length(); i++) {
-      char c = s.charAt(i);
 
-      // Find duplicate
+    int start = 0;
+    for (int i = 0; i < n; i++) {
+      char c = s.charAt(i);
       if (map[c] >= start) {
         res = Math.max(res, i - start);
-        start = map[c] + 1; // Update the start index of the substring
+        start = map[c] + 1;
       }
 
       map[c] = i;
     }
 
-    return Math.max(res, s.length() - start);
+    return Math.max(res, n - start);
   }
 }

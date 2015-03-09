@@ -1,4 +1,4 @@
-package com.zil.li.DP;
+package com.zil.li.array;
 
 import java.util.Arrays;
 

@@ -5,7 +5,7 @@ import com.zil.li.datastructure.ListNode;
 /**
  * Created by youlongli on 2/4/15.
  */
-public class LinkedList {
+public class LinkedListT {
   /**
    * This function get the (2 / n) + 1 node.
    */

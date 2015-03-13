@@ -4,6 +4,29 @@ package com.zil.li.template;
  * Created by youlongli on 2/7/15.
  */
 public class Sort {
+
+  public void LSDStringSort(String[] a) {
+    int n = a.length;
+    int r = 256;
+    String[] aux = new String[n];
+
+    for (int i = n - 1; i >= 0; i--) {
+      int[] count = new int[r + 1];
+      for (int j = 0; j < n; j++) {
+        count[a[j].charAt(i) + 1]++;
+      }
+      for (int j = 0; j < r; r++) {
+        count[j + 1] += count[j];
+      }
+      for (int j = 0; j < n; j++) {
+        aux[count[a[j].charAt(i)]++] = a[i];
+      }
+      for (int j = 0; j < n; j++) {
+        a[i] = aux[i];
+      }
+    }
+  }
+
   public void QuickSort(int[] num) {
     quickSortHelper(num, 0, num.length - 1);
   }

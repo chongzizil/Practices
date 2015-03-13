@@ -29,9 +29,10 @@ public class MatrixWaterFlow {
     int m = matrix.length;
     int n = matrix[0].length;
 
-    if (flowNW && flowSE) {
-      return;
-    }
+    // Bug, if the water flow along one of the side to both NW and SE, this codes will ignore them..
+//    if (flowNW && flowSE) {
+//      return;
+//    }
     if (i == 0 || j == 0) {
       flowNW = true;
       return;

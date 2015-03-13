@@ -2,16 +2,48 @@ package com.zil.li.graph;
 
 import com.zil.li.datastructure.UndirectedGraphNode;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by youlongli on 2/28/15.
+ *
+ * https://leetcode.com/problems/clone-graph/
  */
 public class CloneGraph {
-  public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+  public UndirectedGraphNode solutionA(UndirectedGraphNode node) {
+    // Key: original, Value: copy
+    Map<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<UndirectedGraphNode, UndirectedGraphNode>();
+    Queue<UndirectedGraphNode> queue = new LinkedList<UndirectedGraphNode>();
+
+    if (node == null) {
+      return node;
+    }
+
+    queue.offer(node);
+    map.put(node, new UndirectedGraphNode(node.label));
+
+    while (!queue.isEmpty()) {
+      UndirectedGraphNode origin = queue.poll();
+      UndirectedGraphNode copy = map.get(origin);
+
+      for (UndirectedGraphNode child : origin.neighbors) {
+        if (map.containsKey(child)) {
+          copy.neighbors.add(map.get(child));
+        } else {
+          queue.offer(child);
+
+          UndirectedGraphNode childCopy = new UndirectedGraphNode(child.label);
+          copy.neighbors.add(childCopy);
+          map.put(child, childCopy);
+        }
+
+      }
+    }
+
+    return map.get(node);
+  }
+
+  public UndirectedGraphNode solutionB(UndirectedGraphNode node) {
     if (node == null) {
       return null;
     }

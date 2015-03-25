@@ -9,7 +9,7 @@ public class SearchInsertPosition {
   /**
    * Runtime: 221 ms
    */
-  public int searchInsert(int[] A, int target) {
+  public int searchInsertA(int[] A, int target) {
     if (A == null || A.length == 0) {
       return 0;
     }
@@ -44,5 +44,27 @@ public class SearchInsertPosition {
     }
 
     return l + 1;
+  }
+
+  public int searchInsertB(int[] A, int target) {
+    // No need to check corner cases...
+    int l = 0;
+    int r = A.length - 1;
+    while (l <= r) {
+      int mid = l + (r - l) / 2;
+      if (target == A[mid]) {
+        return mid;
+      } else if (target < A[mid]) {
+        r = mid - 1;
+      } else {
+        l = mid + 1;
+      }
+    }
+
+    // L will always be the right position, e.g. (target = 2) There are 3 cases, 2 of them are corner cases...
+    // 1. 1 3 -> l r -> 3 -> l r -> 3 -> r(1) l(3)
+    // 2. 1 -> l r -> r(1) l(null)
+    // 3. 3 -> l r -> r(null) l(1)
+    return l;
   }
 }

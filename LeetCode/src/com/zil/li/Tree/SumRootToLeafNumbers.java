@@ -17,12 +17,14 @@ public class SumRootToLeafNumbers {
 
   private int helper(TreeNode root, int sum) {
     if (root == null) {
-      return 0;
+      return 0; // Return 0 if the node if null
     }
 
-    sum = sum * 10 + root.val; // calculate the current sum first
+    // calculate the current sum first
+    sum = sum * 10 + root.val;
+    // If the node if leaf node, just return the sum
     if (root.left == null && root.right == null) {
-      return sum; // left node
+      return sum;
     }
 
     return helper(root.left, sum) + helper(root.right, sum);

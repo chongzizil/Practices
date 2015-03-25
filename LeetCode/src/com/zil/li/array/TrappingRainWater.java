@@ -14,9 +14,10 @@ public class TrappingRainWater {
     int currLevel = 0;
 
     while (l <= r) {
-      if (Math.min(A[l], A[r]) > currLevel) {
-        area += (Math.min(A[l], A[r]) - currLevel) * (r - l + 1);
-        currLevel = Math.min(A[l], A[r]);
+      int min = Math.min(A[l], A[r]);
+      if (min > currLevel) {
+        area += (min - currLevel) * (r - l + 1);
+        currLevel = min;
       }
 
       if (A[l] < A[r]) {

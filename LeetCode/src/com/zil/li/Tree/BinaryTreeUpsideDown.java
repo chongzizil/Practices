@@ -48,6 +48,7 @@ public class BinaryTreeUpsideDown {
     parent.right = node;
 
     return parent.right;
+//    return node; // Also works
   }
 
   /**

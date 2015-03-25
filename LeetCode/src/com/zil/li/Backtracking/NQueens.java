@@ -11,35 +11,35 @@ import java.util.List;
 public class NQueens {
   public List<String[]> solveNQueens(int n) {
     List<String[]> res = new ArrayList<String[]>();
-    int[] cols = new int[n]; // column position of each rows
+    int[] rows = new int[n]; // column position of each rows
 
-    helper(res, cols, 0, n);
+    helper(res, rows, 0, n);
 
     return res;
   }
 
-  private void helper(List<String[]> res, int[] cols, int row, int n) {
+  private void helper(List<String[]> res, int[] rows, int row, int n) {
     if (row == n) {
-      res.add(drawBoard(cols, n));
+      res.add(drawBoard(rows, n));
     }
 
     for (int i = 0; i < n; i++) {
-      if (isValid(cols, row, i)) {
-        cols[row] = i;
-        helper(res, cols, row + 1, n);
-        cols[row] = -1; // No need to reset it actually... Since we also pass the current row index.
+      if (isValid(rows, row, i)) {
+        rows[row] = i;
+        helper(res, rows, row + 1, n);
+        rows[row] = -1; // No need to reset it actually... Since we also pass the current row index.
       }
     }
   }
 
-  private boolean isValid(int[] cols, int row, int col) {
+  private boolean isValid(int[] rows, int row, int col) {
     for (int i = 0; i < row; i++) {
       // Vertically
-      if (cols[i] == col) {
+      if (rows[i] == col) {
         return false;
       }
       // Diagonally
-      if (Math.abs(row - i) == Math.abs(cols[i] - col)) {
+      if (Math.abs(row - i) == Math.abs(rows[i] - col)) {
         return false;
       }
     }
@@ -47,15 +47,15 @@ public class NQueens {
     return true;
   }
 
-  private String[] drawBoard(int[] cols, int n) {
+  private String[] drawBoard(int[] rows, int n) {
     String[] res = new String[n];
     for (int i = 0; i < n; i++) {
       StringBuilder sb = new StringBuilder();
-      for (int j = 0; j < cols[i]; j++) {
+      for (int j = 0; j < rows[i]; j++) {
         sb.append('.');
       }
       sb.append('Q');
-      for (int j = cols[i] + 1; j < n; j++) {
+      for (int j = rows[i] + 1; j < n; j++) {
         sb.append('.');
       }
       res[i] = sb.toString();

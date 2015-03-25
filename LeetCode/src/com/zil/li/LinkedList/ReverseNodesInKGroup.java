@@ -27,11 +27,6 @@ public class ReverseNodesInKGroup {
     ListNode dummy = new ListNode(0);
     dummy.next = head;
     ListNode prev = dummy;
-    ListNode newHead = prev;
-
-    for (int i = 0; i < k; i++) {
-      newHead = newHead.next;
-    }
 
     for (int i = 0; i < numOfGroup; i++) {
       ListNode post = prev; // update post node first

@@ -28,7 +28,9 @@ public class PermutationSequence {
 
     for (int i = n; i >= 1; i--) {
       sum /= i;
-      int digitIndex = k / sum; // Index of the digit in the list.
+      // Index of the digit in the list.
+      // e.g. for the first digit, there are (n - 1)! possibilities for each number, so its index is (k / sum) where k is 0 based
+      int digitIndex = k / sum;
       k = k % sum;
 
       sb.append(digits.get(digitIndex));

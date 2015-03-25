@@ -4,6 +4,8 @@ import com.zil.li.datastructure.TreeLinkNode;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Created by youlongli on 2/10/15.
@@ -34,11 +36,41 @@ public class PopulatingNextRightPointersInEachNode {
   }
 
   /**
+   * Use level order traversal
+   * Time complexity: O(n)
+   * Space complexity: O(logn)
+   */
+  public void solutionB(TreeLinkNode root) {
+    Queue<TreeLinkNode> queue = new LinkedList<TreeLinkNode>();
+    if (root == null) {
+      return;
+    }
+
+    queue.offer(root);
+
+    while (!queue.isEmpty()) {
+      int size = queue.size();
+      for (int i = 0; i < size; i++) {
+        TreeLinkNode node = queue.poll();
+        if (i != size - 1) {
+          node.next = queue.peek();
+        }
+        if (node.left != null) {
+          queue.offer(node.left);
+        }
+        if (node.right != null) {
+          queue.offer(node.right);
+        }
+      }
+    }
+  }
+
+  /**
    * Recursive
    * Time complexity: O(n)
    * Space complexity: O(h) (stack)
    */
-  public void solutionB(TreeLinkNode root) {
+  public void solutionC(TreeLinkNode root) {
     helper(root);
   }
 
@@ -63,7 +95,7 @@ public class PopulatingNextRightPointersInEachNode {
    * Time complexity: O(n)
    * Space complexity: O(n)
    */
-  public void solutionC(TreeLinkNode root) {
+  public void solutionD(TreeLinkNode root) {
     Deque<TreeLinkNode> queue = new ArrayDeque<TreeLinkNode>();
 
     if (root == null) {

@@ -10,9 +10,28 @@ public class ReverseInteger {
   private static final int MIN = Integer.MIN_VALUE;
 
   /**
+   * Runtime: 215 ms
+   */
+  public int reverseA(int x) {
+    int res = 0;
+
+    while (x != 0) {
+      int digit = x % 10;
+      if ((res > MAX / 10 || (res == MAX / 10 && digit >= MAX % 10))
+          || (res < MIN / 10 || (res == MIN / 10 && digit <= MIN % 10))) {
+        return 0;
+      }
+      res = res * 10 + digit;
+      x = x / 10;
+    }
+
+    return res;
+  }
+
+  /**
    * Runtime: 246 ms
    */
-  public int reverse(int x) {
+  public int reverseB(int x) {
     int res = 0;
 
     while (x != 0) {

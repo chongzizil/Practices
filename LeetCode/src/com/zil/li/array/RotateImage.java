@@ -9,17 +9,17 @@ public class RotateImage {
   public void rotate(int[][] matrix) {
     int n = matrix.length;
 
-    for (int k = 0; k < n / 2; k++) {
-      // Fix: k & n - k - 1
-      // Move: i & n - i - 1
-      for (int i = k; i < n - k - 1; i++) { // top <-> right
-        swap(matrix, k, i, i, n - k - 1);
+    for (int i = 0; i < n / 2; i++) {
+      // Fix: i & n - i - 1
+      // Move: j & n - j - 1
+      for (int j = i; j < n - i - 1; j++) { // top <-> right
+        swap(matrix, i, j, j, n - i - 1);
       }
-      for (int i = k; i < n - k - 1; i++) { // top <-> bottom
-        swap(matrix, k, i, n - k - 1, n - i - 1);
+      for (int j = i; j < n - i - 1; j++) { // top <-> bottom
+        swap(matrix, i, j, n - i - 1, n - j - 1);
       }
-      for (int i = k; i < n - k - 1; i++) { // top <-> left
-        swap(matrix, k, i, n - i - 1, k);
+      for (int j = i; j < n - i - 1; j++) { // top <-> left
+        swap(matrix, i, j, n - j - 1, i);
       }
     }
   }

@@ -17,7 +17,7 @@ public class SqrtX {
     }
 
     int l = 1;
-    int r = x;
+    int r = x; // NOTE: can not use x / 2 due to corner case 4...
 
     while (l + 1 < r) {
       int mid = l + (r - l) / 2;

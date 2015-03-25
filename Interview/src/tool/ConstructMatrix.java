@@ -1,4 +1,4 @@
-package com.zil.li.tool;
+package tool;
 
 import java.util.ArrayList;
 import java.util.List;

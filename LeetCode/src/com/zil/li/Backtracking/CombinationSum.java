@@ -34,6 +34,10 @@ public class CombinationSum {
     }
 
     for (int i = pos; i < candidates.length; i++) {
+      if (i != pos && candidates[i] == candidates[i - 1]) {
+        continue;
+      }
+
       if (candidates[i] <= target) {
         list.add(candidates[i]);
         searchA(res, list, candidates, target - candidates[i], i);
@@ -67,6 +71,10 @@ public class CombinationSum {
     }
 
     for (int i = pos; i < candidates.length; i++) {
+      if (i != 0 && candidates[i] == candidates[i - 1]) {
+        continue;
+      }
+
       if (sum + candidates[i] <= target) {
         list.add(candidates[i]);
         searchB(res, list, candidates, sum + candidates[i], target, i);

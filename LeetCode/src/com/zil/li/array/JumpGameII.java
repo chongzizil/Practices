@@ -21,9 +21,7 @@ public class JumpGameII {
       minJump++;
       int furthest = end;
       for (int i = beg; i <= end; i++) {
-        if (A[i] + i > furthest) {
-          furthest = A[i] + i;
-        }
+        furthest = Math.max(furthest, A[i] + i);
       }
       beg = end + 1;
       end = furthest;

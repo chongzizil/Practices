@@ -22,7 +22,7 @@ public class InsertionSortList {
       }
       ListNode tmp = curr.next;
       curr.next = head;
-      head = head.next;
+      head = head.next; // Note: First set the head to be the next, then set the curr.next.next!
       // Curr.next can not be head.next. Need to append the tail since it's insertion sort.
       curr.next.next = tmp; // Note: it's next.next
     }

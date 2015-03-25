@@ -2,10 +2,7 @@ package com.zil.li.api;
 
 import com.zil.li.datastructure.TreeNode;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by youlongli on 3/5/15.
@@ -19,16 +16,13 @@ public class BinarySearchTreeIterator {
    * Space complexity: O(h)
    */
   public class BSTIteratorA {
-    Deque<TreeNode> stack;
+    Stack<TreeNode> stack;
 
     public BSTIteratorA(TreeNode root) {
-      stack = new ArrayDeque<TreeNode>();
-      if (root != null) {
+      stack = new Stack<TreeNode>();
+      while (root != null) {
         stack.push(root);
-
-        while (stack.peek().left != null) {
-          stack.push(stack.peek().left);
-        }
+        root = root.left;
       }
     }
 
@@ -39,17 +33,18 @@ public class BinarySearchTreeIterator {
 
     /** @return the next smallest number */
     public int next() {
-      TreeNode minNode = stack.pop();
-      int min = minNode.val;
+      TreeNode node = stack.pop();
+      int res = node.val;
 
-      if (minNode.right != null) {
-        stack.push(minNode.right);
-        while (stack.peek().left != null) {
-          stack.push(stack.peek().left);
+      if (node.right != null) {
+        node = node.right;
+        while (node != null) {
+          stack.push(node);
+          node = node.left;
         }
       }
 
-      return min;
+      return res;
     }
   }
 

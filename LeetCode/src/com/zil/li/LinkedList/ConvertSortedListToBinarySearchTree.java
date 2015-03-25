@@ -14,7 +14,7 @@ public class ConvertSortedListToBinarySearchTree {
    * Space complexity: O(1)
    */
   ListNode curr; // It's not a good idea, but it does the job.
-  public TreeNode sortedListToBST(ListNode head) {
+  public TreeNode solutionA(ListNode head) {
     int len = getLen(head);
     curr = head;
 
@@ -46,5 +46,32 @@ public class ConvertSortedListToBinarySearchTree {
       head = head.next;
     }
     return len;
+  }
+
+  /**
+   * Not much different, this one use two pointer l and r instead of the len/num.
+   */
+  public TreeNode solutionB(ListNode head) {
+    curr = head;
+    int len = getLen(head);
+
+    return helper(0, len - 1);
+  }
+
+  private TreeNode helper(int l, int r) {
+    if (l > r) {
+      return null;
+    }
+
+    int mid = l + (r - l) / 2;
+    TreeNode left = helper(l, mid - 1);
+    TreeNode root = new TreeNode(curr.val);
+    curr = curr.next;
+    TreeNode right = helper(mid + 1, r);
+
+    root.left = left;
+    root.right = right;
+
+    return root;
   }
 }

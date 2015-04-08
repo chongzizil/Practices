@@ -2,10 +2,7 @@ package com.zil.li.Tree;
 
 import com.zil.li.datastructure.TreeNode;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by youlongli on 2/11/15.
@@ -14,10 +11,11 @@ import java.util.List;
  */
 public class BinaryTreeZigzagLevelOrderTraversal {
   /**
+   * BFS: Using a queue and simple reverse function
    * Time complexity: O(n)
    * Space complexity: O(n)
    */
-  public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+  public List<List<Integer>> zigzagLevelOrderA(TreeNode root) {
     List<List<Integer>> res = new ArrayList<List<Integer>>();
     Deque<TreeNode> queue = new ArrayDeque<TreeNode>();
 
@@ -58,5 +56,52 @@ public class BinaryTreeZigzagLevelOrderTraversal {
       list.set(i, list.get(j));
       list.set(j, tmp);
     }
+  }
+
+  /**
+   * BFS: Using two stack and a flag :)
+   * Time complexity: O(n)
+   * Space complexity: O(n)
+   */
+  public List<List<Integer>> zigzagLevelOrderB(TreeNode root) {
+    List<List<Integer>> res = new ArrayList<>();
+    Stack<TreeNode> currStack = new Stack<>();
+    Stack<TreeNode> nextStack = new Stack<>();
+    boolean normalOrder = true;
+
+    if (root == null) {
+      return res;
+    }
+
+    currStack.push(root);
+
+    while (!currStack.isEmpty()) {
+      List<Integer> level = new ArrayList<>();
+      while (!currStack.isEmpty()) {
+        TreeNode node = currStack.pop();
+        level.add(node.val);
+        if (normalOrder) {
+          if (node.left != null) {
+            nextStack.push(node.left);
+          }
+          if (node.right != null) {
+            nextStack.push(node.right);
+          }
+        } else {
+          if (node.right != null) {
+            nextStack.push(node.right);
+          }
+          if (node.left != null) {
+            nextStack.push(node.left);
+          }
+        }
+      }
+      res.add(level);
+      currStack = nextStack;
+      nextStack = new Stack<TreeNode>();
+      normalOrder = !normalOrder;
+    }
+
+    return res;
   }
 }

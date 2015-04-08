@@ -35,9 +35,7 @@ public class RecoverBinarySearchTree {
         first = prev;
       }
       // Note: Do not use if-else. E.g. (2, 1) We will have first and second in the same time.
-      if (first != null) {
-        second = root;
-      }
+      second = root;
     }
 
     prev = root;

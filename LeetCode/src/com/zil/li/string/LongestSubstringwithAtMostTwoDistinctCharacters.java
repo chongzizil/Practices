@@ -65,7 +65,7 @@ public class LongestSubstringWithAtMostTwoDistinctCharacters {
     }
 
     int res = 0;
-    int i = 0, j = -1; // i: First of current char. j: Last of another char
+    int i = 0, j = -1; // i: First char of the substring. j: Last of the newest char
 
     for (int k = 1; k < s.length(); k++) {
       if (s.charAt(k) == s.charAt(k - 1)) {
@@ -90,7 +90,7 @@ public class LongestSubstringWithAtMostTwoDistinctCharacters {
    * Runtime: 205 ms
    */
   public int solutionC(String s) {
-    int[] count = new int[256];
+    int[] count = new int[128];
     int i = 0, numDistinct = 0, maxLen = 0;
 
     for (int j = 0; j < s.length(); j++) {

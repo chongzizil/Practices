@@ -6,6 +6,7 @@ package com.zil.li.DP;
  * https://oj.leetcode.com/problems/maximum-subarray/
  */
 public class MaximumSubarray {
+  // Sliding window
   public int solutionA(int[] A) {
     if (A == null || A.length == 0) {
       return 0;

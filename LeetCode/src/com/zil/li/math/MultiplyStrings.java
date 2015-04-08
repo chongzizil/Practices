@@ -25,17 +25,17 @@ public class MultiplyStrings {
     }
 
     int carry = 0;
-    for (int i = 0; i < len1 + len2; i++) {
+    for (int i = 0; i < sum.length; i++) {
       sum[i] += carry;
       carry = sum[i] / 10;
       sum[i] %= 10;
     }
 
-    for (int i = 0; i < len1 + len2; i++) {
-      sb.insert(0, String.valueOf(sum[i]));
+    for (int i = sum.length - 1; i >= 0; i--) {
+      sb.append(sum[i]);
     }
 
-    while (sb.charAt(0) == '0' && sb.length() != 1) { // Delete all leading zeros
+    while (sb.charAt(0) == '0' && sb.length() > 1) { // Delete all leading zeros
       sb.deleteCharAt(0);
     }
 

@@ -14,11 +14,11 @@ import java.util.List;
  */
 public class BinaryTreeLevelOrderTraversal {
   /**
-   * Use BFS.
+   * BFS: Use queue.
    * Time complexity: O(n)
    * Space complexity: O(1)
    */
-  public List<List<Integer>> levelOrder(TreeNode root) {
+  public List<List<Integer>> levelOrderA(TreeNode root) {
     List<List<Integer>> res = new ArrayList<List<Integer>>();
     Deque<TreeNode> queue = new ArrayDeque<TreeNode>();
 
@@ -46,5 +46,34 @@ public class BinaryTreeLevelOrderTraversal {
     }
 
     return res;
+  }
+
+  /**
+   * DFS: Use recursive function.
+   * Time complexity: O(n)
+   * Space complexity: O(1)
+   */
+  public List<List<Integer>> levelOrderB(TreeNode root) {
+    List<List<Integer>> res = new ArrayList<>();
+    int currLevel = 0;
+
+    dfs(res, root, 0);
+
+    return res;
+  }
+
+  private void dfs(List<List<Integer>> res, TreeNode node, int currLevel) { // In-order
+    if (node == null) {
+      return;
+    }
+
+    if (res.size() < currLevel + 1) {
+      res.add(new ArrayList<Integer>());
+    }
+
+    res.get(currLevel).add(node.val);
+
+    dfs(res, node.left, currLevel + 1);
+    dfs(res, node.right, currLevel + 1);
   }
 }

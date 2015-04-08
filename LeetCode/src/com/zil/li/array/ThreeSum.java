@@ -9,9 +9,13 @@ import java.util.List;
  *
  * https://oj.leetcode.com/problems/3sum/
  *
- * Gosh = .=, this problem has an awful title...
+ * Questions: Is there duplicate elements, since no duplicate results are required.
+ * BTW: Gosh = .=, this problem has an awful title...
  */
 public class ThreeSum {
+  /**
+   * Time complexity: O(n^2) -> Sort takes O(nlogn) and double for loop takes O(n^2)
+   */
   public List<List<Integer>> threeSum(int[] num) {
     List<List<Integer>> res = new ArrayList<List<Integer>>();
 
@@ -38,6 +42,7 @@ public class ThreeSum {
           list.add(num[l]);
           list.add(num[r]);
           res.add(list);
+
           l++;
           r--;
           while (l < r && num[l] == num[l - 1]) {

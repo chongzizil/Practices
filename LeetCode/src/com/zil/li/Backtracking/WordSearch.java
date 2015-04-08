@@ -34,11 +34,9 @@ public class WordSearch {
     int m = board.length;
     int n = board[0].length;
 
-    if (row < 0 || row >= m || col < 0 || col >= n || board[row][col] == '#') {
-      return false;
-    }
-
-    if (board[row][col] != word.charAt(i)) {
+    if (row < 0 || row >= m || col < 0 || col >= n
+        || board[row][col] == '#'
+        || board[row][col] != word.charAt(i)) {
       return false;
     }
 

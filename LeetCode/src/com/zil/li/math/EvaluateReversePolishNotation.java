@@ -25,9 +25,7 @@ public class EvaluateReversePolishNotation {
     for (String token : tokens) {
       if (operators.containsKey(token)) {
         // Note: Be careful of the order.
-        int n2 = stack.pop();
-        int n1 = stack.pop();
-        stack.push(eval(token, n1, n2));
+        stack.push(eval(token, stack.pop(), stack.pop()));
       } else {
         stack.push(Integer.parseInt(token));
       }
@@ -36,7 +34,7 @@ public class EvaluateReversePolishNotation {
     return stack.pop();
   }
 
-  private int eval(String operator, int n1, int n2) {
+  private int eval(String operator, int n2, int n1) {
     switch(operator) {
       case "+": return n1 + n2;
       case "-": return n1 - n2;
@@ -49,7 +47,7 @@ public class EvaluateReversePolishNotation {
    * More general solution where new operator are easy to add without DRY
    */
   private interface Operator {
-    int eval(int n1, int n2);
+    int eval(int n2, int n1);
   }
 
   public int solutionB(String[] tokens) {
@@ -57,23 +55,21 @@ public class EvaluateReversePolishNotation {
     Deque<Integer> stack = new ArrayDeque<Integer>();
 
     operators.put("+", new Operator() {
-      public int eval(int n1, int n2) { return n1 + n2; }
+      public int eval(int n2, int n1) { return n1 + n2; }
     });
     operators.put("-", new Operator() {
-      public int eval(int n1, int n2) { return n1 - n2; }
+      public int eval(int n2, int n1) { return n1 - n2; }
     });
     operators.put("*", new Operator() {
-      public int eval(int n1, int n2) { return n1 * n2; }
+      public int eval(int n2, int n1) { return n1 * n2; }
     });
     operators.put("/", new Operator() {
-      public int eval(int n1, int n2) { return n1 / n2; }
+      public int eval(int n2, int n1) { return n1 / n2; }
     });
 
     for (String token : tokens) {
       if (operators.containsKey(token)) {
-        int n2 = stack.pop();
-        int n1 = stack.pop();
-        stack.push(operators.get(token).eval(n1, n2));
+        stack.push(operators.get(token).eval(stack.pop(), stack.pop()));
       } else {
         stack.push(Integer.parseInt(token));
       }

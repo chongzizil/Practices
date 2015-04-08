@@ -12,6 +12,7 @@ public class RemoveDuplicatesFromSortedArrayII {
       return n;
     }
 
+    // i points to the current tail
     int i = 1;
     for (int j = 2; j < n; j++) {
       if (A[j] != A[i - 1]) {

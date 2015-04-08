@@ -34,17 +34,21 @@ public class LongestCommonPrefix {
     if (strs == null || strs.length == 0) {
       return "";
     }
+
     String prefix = strs[0];
-    for(int i = 1; i < strs.length; i++) {
+    for (int i = 1; i < strs.length; i++) {
+      String compare = strs[i];
       int j = 0;
-      while( j < strs[i].length() && j < prefix.length() && strs[i].charAt(j) == prefix.charAt(j)) {
-        j++;
+
+      for (; j < prefix.length() && j < compare.length(); j++) {
+        if (prefix.charAt(j) != compare.charAt(j)) {
+          break;
+        }
       }
-      if( j == 0) {
-        return "";
-      }
+
       prefix = prefix.substring(0, j);
     }
+
     return prefix;
   }
 }

@@ -21,10 +21,6 @@ public class GasStation {
       total += gas[i] - cost[i];
     }
 
-    if (total < 0) {
-      return -1; // Total gas is not enough, it's impossible
-    } else {
-      return res;
-    }
+    return total < 0 ? -1 : res;
   }
 }

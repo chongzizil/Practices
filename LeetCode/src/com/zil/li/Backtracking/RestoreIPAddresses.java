@@ -24,13 +24,7 @@ public class RestoreIPAddresses {
 
   private void helper(List<String> res, List<String> list, String s, int pos) {
     if (list.size() == 4 && pos == s.length()) {
-      StringBuilder sb = new StringBuilder();
-      for (String str : list) {
-        sb.append(str);
-        sb.append('.');
-      }
-      sb.setLength(sb.length() - 1);
-      res.add(sb.toString());
+      res.add(getIP(list));
     }
 
     for (int i = pos; i < s.length() && i < pos + 3; i++) {
@@ -40,6 +34,17 @@ public class RestoreIPAddresses {
         list.remove(list.size() - 1);
       }
     }
+  }
+
+  private String getIP(List<String> list) {
+    StringBuilder sb = new StringBuilder();
+    for (String str : list) {
+      sb.append(str);
+      sb.append(".");
+    }
+
+    sb.setLength(sb.length() - 1);
+    return sb.toString();
   }
 
   private boolean isValid(String s) {

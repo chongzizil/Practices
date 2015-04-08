@@ -21,6 +21,7 @@ public class MinStack {
   }
 
   public void pop() {
+    // ... Use equals()
     if (stack.pop().equals(minStack.peek())) {
       minStack.pop();
     }

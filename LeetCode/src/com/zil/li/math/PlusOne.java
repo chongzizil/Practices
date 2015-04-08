@@ -12,6 +12,10 @@ public class PlusOne {
   public int[] solutionA(int[] digits) {
     int carry = 1;
     for (int i = digits.length - 1; i >= 0; i--) {
+      if (carry == 0) {
+        return digits; // If the carry is already 0, no need for further calculation.
+      }
+
       int sum = digits[i] + carry;
       carry = sum / 10;
       digits[i] = sum % 10;

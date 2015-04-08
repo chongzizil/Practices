@@ -10,6 +10,10 @@ import java.util.List;
 /**
  * Created by youlongli on 2/8/15.
  *
+ * Idea: Use BFS with queue to do level order traversal and reverse the result list.
+ *        O(n) time for all nodes and O(h) time for reversing the list.
+ *       Use DFS with recursive function, for kth level, add the element to maxDepth - k - 1.
+ *        O(n) time for all nodes and O(h) time for getting the maximum depth.
  * https://oj.leetcode.com/problems/binary-tree-level-order-traversal-ii/
  */
 public class BinaryTreeLevelOrderTraversalII {

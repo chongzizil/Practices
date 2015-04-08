@@ -13,37 +13,37 @@ import com.zil.li.datastructure.TreeNode;
  */
 public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
   public TreeNode buildTree(int[] preorder, int[] inorder) {
-    if (preorder == null || inorder == null || preorder.length == 0 || preorder.length != inorder.length) {
+    if (preorder == null || inorder == null || preorder.length != inorder.length) {
       return null;
     }
 
-    int len = inorder.length;
-    return helper(preorder, inorder, 0, len - 1, 0, len - 1);
+    int n = preorder.length;
+
+    return helper(preorder, inorder, 0, n - 1, 0, n - 1);
   }
 
-  private TreeNode helper(int[] preorder, int[] inorder, int pBeg, int pEnd, int iBeg, int iEnd) {
-    if (pBeg > pEnd) {
+  private TreeNode helper(int[] preorder, int[] inorder, int begP, int endP, int begI, int endI) {
+    if (begP > endP) {
       return null;
     }
 
-    TreeNode root = new TreeNode(preorder[pBeg]);
+    TreeNode root = new TreeNode(preorder[begP]);
+    int index = searchElem(inorder, begI, endI, root.val);
+    int leftNum = index - begI;
 
-    int pos = find(inorder, preorder[pBeg], iBeg, iEnd);
-    int leftNum = pos - iBeg; // Note: do not +1
-
-    root.left = helper(preorder, inorder, pBeg + 1, pBeg + leftNum, iBeg, pos - 1);
-    root.right = helper(preorder, inorder, pBeg + leftNum + 1, pEnd, pos + 1, iEnd);
+    root.left = helper(preorder, inorder, begP + 1, begP + leftNum, begI, index - 1);
+    root.right = helper(preorder, inorder, begP + leftNum + 1, endP, index + 1, endI);
 
     return root;
   }
 
-  private int find(int[] inorder, int target, int iBeg, int iEnd) {
-    for (int i = iBeg; i <= iEnd; i++) {
-      if (inorder[i] == target) {
+  private int searchElem(int[] array, int beg, int end, int target) { // No binary search, it's not sorted.
+    for (int i = beg; i <= end; i++) {
+      if (array[i] == target) {
         return i;
       }
     }
 
-    return -1;
+    throw new IllegalArgumentException("Oooops...");
   }
 }

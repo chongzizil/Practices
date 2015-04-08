@@ -2,6 +2,8 @@ package com.zil.li.DP;
 
 /**
  * Created by youlongli on 2/22/15.
+ *
+ * https://leetcode.com/problems/maximum-product-subarray/
  */
 public class MaximumProductSubarray {
   public int maxProduct(int[] A) {

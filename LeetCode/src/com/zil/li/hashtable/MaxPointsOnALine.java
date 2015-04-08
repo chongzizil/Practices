@@ -21,7 +21,7 @@ public class MaxPointsOnALine {
 
       // Check the k of all the lines between ith point and jth point
       for (int j = i; j < points.length; j++) {
-        // Same point
+        // Same point (Since the map only count the 'other' points)
         if (points[i].x == points[j].x && points[i].y == points[j].y) {
           dup++;
           continue;

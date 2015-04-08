@@ -9,36 +9,40 @@ public class BestTimeToBuyAndSellStockIII {
   /**
    * Idea: In order to find two transaction to maximize the profit, we can think it of finding the maximum profit single transaction for two arrays separately.
    *
-   * Hence we can use DP to compute the largest single transaction from left and right for a certain end point (where we cut the array into two...).
+   * Hence we can use DP to compute the largest single transaction from left and right for a certain end/split point (where we cut the array into two...).
    */
   public int maxProfit(int[] prices) {
-    if (prices == null || prices.length == 0) {
+    if (prices == null || prices.length < 2) {
       return 0;
     }
 
     int n = prices.length;
-    int[] l = new int[n];
-    int[] r = new int[n];
+    int[] left = new int[n];
+    int[] right = new int[n];
     int min = prices[0];
     int max = prices[n - 1];
-    int res = 0;
 
-    // Left part
+    // Left
+    left[0] = 0;
     for (int i = 1; i < n; i++) {
-      l[i] = Math.max(l[i - 1], prices[i] - min);
+      int profit = prices[i] - min;
+      left[i] = Math.max(left[i - 1], profit);
       min = Math.min(min, prices[i]);
     }
 
-    // Right part
+    // Right
+    right[n - 1] = 0;
     for (int i = n - 2; i >= 0; i--) {
-      r[i] = Math.max(r[i + 1], max - prices[i]);
+      int profit = max - prices[i];
+      right[i] = Math.max(right[i + 1], profit);
       max = Math.max(max, prices[i]);
     }
 
+    int maxProfit = 0;
     for (int i = 0; i < n; i++) {
-      res = Math.max(res, l[i] + r[i]);
+      maxProfit = Math.max(maxProfit, left[i] + right[i]);
     }
 
-    return res;
+    return maxProfit;
   }
 }

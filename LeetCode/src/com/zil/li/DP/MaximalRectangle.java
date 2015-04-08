@@ -22,18 +22,18 @@ public class MaximalRectangle {
     int res = 0;
     int m = matrix.length;
     int n = matrix[0].length;
-    int[][] h = new int[m][n + 1];
+    int[] h = new int[n + 1];
 
     for (int i = 0; i < m; i++) {
       for (int j = 0; j < n; j++) {
-        if (i == 0) {
-          h[i][j] = matrix[i][j] == '1' ? 1 : 0;
+        if (matrix[i][j] == '0') {
+          h[j] = 0;
         } else {
-          h[i][j] = matrix[i][j] == '1' ? h[i - 1][j] + 1 : 0;
+          h[j]++;
         }
       }
 
-      res = Math.max(res, maxArea(h[i]));
+      res = Math.max(res, maxArea(h));
     }
 
     return res;

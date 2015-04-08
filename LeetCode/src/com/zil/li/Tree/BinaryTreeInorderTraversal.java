@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class BinaryTreeInorderTraversal {
   /**
-   * This one is much concise and use less space.
+   * Iterative: This one is much concise and use less space.
    */
   public List<Integer> solutionA(TreeNode root) {
     List<Integer> res = new ArrayList<Integer>();
@@ -38,7 +38,9 @@ public class BinaryTreeInorderTraversal {
 
     return res;
   }
-
+  /**
+   * Iterative
+   */
   public List<Integer> solutionB(TreeNode root) {
     Deque<TreeNode> stack = new ArrayDeque<TreeNode>();
     List<TreeNode> visited = new ArrayList<TreeNode>();

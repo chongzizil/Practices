@@ -73,12 +73,11 @@ public class Triangle {
    * Memorize
    */
   public int solutionC(List<List<Integer>> triangle) {
-    int row = triangle.size();
-    int col = triangle.get(row - 1).size();
-    int[][] dp = new int[row][col];
+    int n = triangle.size();
+    int[][] dp = new int[n][n];
 
-    for (int i = 0; i < row; i++) {
-      for (int j = 0; j < col; j++) {
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < n; j++) {
         dp[i][j] = Integer.MAX_VALUE;
       }
     }

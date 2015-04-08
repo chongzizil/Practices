@@ -10,7 +10,7 @@ import java.util.*;
  * Ref: http://www.cnblogs.com/yuzhangcmu/p/4119492.html
  */
 public class WordLadderII {
-  public List<List<String>> findLadders(String start, String end, Set<String> dict) {
+  public List<List<String>> findLaddersA(String start, String end, Set<String> dict) {
     if (start == null || end == null || dict == null) {
       return new ArrayList<List<String>>();
     }
@@ -82,5 +82,84 @@ public class WordLadderII {
 
     // No solution...
     return new ArrayList<List<String>>();
+  }
+
+  /**
+   * First use BFS and then use DFS
+   */
+  public List<List<String>> findLaddersB(String start, String end, Set<String> dict) {
+    List<List<String>> res = new ArrayList<>();
+    List<String> path = new ArrayList<>();
+    // Key: word, value: list of previous words on the path
+    Map<String, List<String>> map = new HashMap<>();
+    Map<String, Integer> distance = new HashMap<>();
+
+    bfs(map, distance, start, end, dict);
+
+    path.add(end);
+    dfs(res, path, map, distance, start);
+
+    return res;
+  }
+
+  private void dfs(List<List<String>> res, List<String> path, Map<String, List<String>> map, Map<String, Integer> distance, String start) {
+    String currWord = path.get(path.size() - 1);
+    if (currWord.equals(start)) { // Get the whole path from start to end.
+      Collections.reverse(path);
+      res.add(new ArrayList<String>(path));
+      Collections.reverse(path);
+    } else {
+      List<String> prevWords = map.get(currWord);
+      for (String prevWord : prevWords) {
+        // Make sure the two words min distance are diff by 1, which means it's a shortest path, otherwise skip.
+        if (distance.get(prevWord) + 1 != distance.get(currWord)) {
+          continue;
+        }
+        path.add(prevWord);
+        dfs(res, path, map, distance, start); // Backtracking
+        path.remove(path.size() - 1);
+      }
+    }
+  }
+
+  // Use BFS to get each word's previous word list and also the min distance for each word.
+  private void bfs(Map<String, List<String>> map, Map<String, Integer> distance, String start, String end, Set<String> dict) {
+    Queue<String> queue = new LinkedList<>();
+    queue.add(start);
+    dict.add(start);
+    dict.add(end);
+    distance.put(start, 1);
+
+    for (String word : dict) {
+      map.put(word, new ArrayList<String>());
+    }
+
+    while(!queue.isEmpty()) {
+      int size = queue.size();
+      for (int i = 0; i < size; i++) {
+        String currWord = queue.poll();
+        List<String> nextWords = getNextWords(dict, currWord); // Get next step word list
+        for (String nextWord : nextWords) {
+          map.get(nextWord).add(currWord); // Update the current word as one of the previous word of the next word
+          if (!distance.containsKey(nextWord)) { // First time see the word, also used to check if it's visited
+            distance.put(nextWord, distance.get(currWord) + 1); // Update the word's min distance
+            queue.offer(nextWord); // Add to the queue
+          }
+        }
+      }
+    }
+  }
+
+  private List<String> getNextWords(Set<String> dict, String word) {
+    List<String> nextWords = new ArrayList<>();
+    for (int i = 0; i < word.length(); i++) {
+      for (char c = 'a'; c <= 'z'; c++) {
+        String tmp = word.substring(0, i) + c + word.substring(i + 1);
+        if (dict.contains(tmp)) {
+          nextWords.add(tmp);
+        }
+      }
+    }
+    return nextWords;
   }
 }

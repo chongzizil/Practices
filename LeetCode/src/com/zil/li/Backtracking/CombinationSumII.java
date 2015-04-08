@@ -28,6 +28,7 @@ public class CombinationSumII {
   private void search(List<List<Integer>> res, List<Integer> list, int[] num, int sum, int target, int pos) {
     if (sum == target) {
       res.add(new ArrayList<Integer>(list));
+      return;
     }
 
     for (int i = pos; i < num.length; i++) {

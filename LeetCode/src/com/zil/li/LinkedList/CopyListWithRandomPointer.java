@@ -45,15 +45,13 @@ public class CopyListWithRandomPointer {
 
   private RandomListNode split(RandomListNode head) {
     RandomListNode dummy = new RandomListNode(0);
-    dummy.next = head;
     RandomListNode curr = dummy;
 
-    while (curr.next != null) {
-      RandomListNode original = curr.next;
-      curr.next = curr.next.next;
+    while (head != null) {
+      curr.next = head.next;
+      head.next = head.next.next;
       curr = curr.next;
-      // Note: restore the original node.
-      original.next = curr.next;
+      head = head.next;
     }
 
     return dummy.next;
@@ -100,5 +98,17 @@ public class CopyListWithRandomPointer {
     }
 
     return dummy.next;
+  }
+
+  private RandomListNode generateListB(Map<RandomListNode, RandomListNode> map, RandomListNode head) {
+    RandomListNode curr = head;
+    while (curr != null) {
+      if (curr.next != null) {
+        map.get(curr).next = map.get(curr.next);
+      }
+      curr = curr.next;
+    }
+
+    return map.get(head);
   }
 }

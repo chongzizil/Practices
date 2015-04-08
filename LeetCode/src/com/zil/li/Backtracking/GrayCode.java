@@ -27,8 +27,7 @@ public class GrayCode {
     // Construct the lower part, which is mirrored of the upper part where the most significant digit is 1 instead of 0.
     for (int i = res.size() - 1; i >= 0; i--) {
       int num = res.get(i);
-      num += 1 << (n - 1);
-      res.add(num);
+      res.add(num | (1 << (n - 1)));
     }
 
     return res;

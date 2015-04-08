@@ -19,7 +19,7 @@ public class GenerateParentheses {
   }
 
   private void helperA(List<String> res, StringBuilder sb, int l, int r) {
-    if (l > r || l < 0 || r < 0) { // Note: check the index! Otherwise will cause stack over flow...
+    if (l < 0 || r < 0 || l > r) { // Note: check the index! Otherwise will cause stack over flow...
       return;
     }
 

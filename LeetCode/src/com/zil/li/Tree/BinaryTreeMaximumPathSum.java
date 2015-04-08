@@ -22,7 +22,7 @@ public class BinaryTreeMaximumPathSum {
    */
   private class Result {
     int max;
-    int maxSingle;
+    int maxSingle; // Maximum path sum start from root
     public Result() {
       max = Integer.MIN_VALUE;
       maxSingle = Integer.MIN_VALUE;

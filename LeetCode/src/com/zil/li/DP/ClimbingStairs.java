@@ -12,17 +12,14 @@ public class ClimbingStairs {
    * Space: O(1)
    */
   public int solutionA(int n) {
-    if (n <= 1) {
-      return n;
-    }
+    int prevPrev = 1;
+    int prev = 1;
+    int now = 1;
 
-    int prev = 1, prevPrev = 1;
-    int now = 0;
     for (int i = 2; i <= n; i++) {
       now = prev + prevPrev;
       prevPrev = prev;
       prev = now;
-
     }
 
     return now;

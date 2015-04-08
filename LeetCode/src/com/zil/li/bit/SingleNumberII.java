@@ -24,6 +24,21 @@ public class SingleNumberII {
     return res;
   }
 
+  public int singleNumberA(int[] A) {
+    int res = 0;
+    for (int i = 0; i < 32; i++) {
+      int sum = 0;
+      for (int j = 0; j < A.length; j++) {
+        if (((A[j] >> i) & 1) == 1) {
+          sum++;
+        }
+      }
+      res |= (sum % 3) << i;
+    }
+
+    return res;
+  }
+
   // Another neat solution, and much more easy to understand...
   // It use two bit to store the number of times of 1 appears in
   // the array. (ones, twos: 00 -> 10 -> 01 -> 00)

@@ -1,10 +1,10 @@
+import backtracking.MatrixWaterFlow;
 import junit.framework.TestCase;
 import org.junit.Test;
 import tool.ConstructMatrix;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 public class MatrixWaterFlowTest extends TestCase {

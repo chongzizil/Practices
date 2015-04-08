@@ -20,7 +20,7 @@ public class NumberOf1Bits {
 
     while(n != 0) {
       n &= n - 1;
-      ++ res;
+      res++;
     }
 
     return res;

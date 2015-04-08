@@ -10,33 +10,30 @@ import java.util.*;
  * https://leetcode.com/problems/clone-graph/
  */
 public class CloneGraph {
-  public UndirectedGraphNode solutionA(UndirectedGraphNode node) {
-    // Key: original, Value: copy
-    Map<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<UndirectedGraphNode, UndirectedGraphNode>();
-    Queue<UndirectedGraphNode> queue = new LinkedList<UndirectedGraphNode>();
+  public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+    // Key: Original, Value: Clone
+    Map<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<>();
+    Queue<UndirectedGraphNode> queue = new LinkedList<>();
 
     if (node == null) {
-      return node;
+      return null;
     }
 
     queue.offer(node);
     map.put(node, new UndirectedGraphNode(node.label));
 
     while (!queue.isEmpty()) {
-      UndirectedGraphNode origin = queue.poll();
-      UndirectedGraphNode copy = map.get(origin);
+      UndirectedGraphNode original = queue.poll();
+      UndirectedGraphNode cloned = map.get(original);
 
-      for (UndirectedGraphNode child : origin.neighbors) {
-        if (map.containsKey(child)) {
-          copy.neighbors.add(map.get(child));
-        } else {
-          queue.offer(child);
-
-          UndirectedGraphNode childCopy = new UndirectedGraphNode(child.label);
-          copy.neighbors.add(childCopy);
-          map.put(child, childCopy);
+      for (UndirectedGraphNode neighbor : original.neighbors) {
+        if (!map.containsKey(neighbor)) {
+          // First seen, clone and add to queue.
+          map.put(neighbor, new UndirectedGraphNode(neighbor.label));
+          queue.offer(neighbor);
         }
 
+        cloned.neighbors.add(map.get(neighbor));
       }
     }
 

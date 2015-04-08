@@ -5,6 +5,8 @@ import com.zil.li.datastructure.TreeNode;
 /**
  * Created by youlongli on 2/9/15.
  *
+ * Assume (null, 0) is not valid.
+ *
  * https://oj.leetcode.com/problems/path-sum/
  */
 public class PathSum {

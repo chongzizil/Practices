@@ -59,12 +59,12 @@ public class CombinationSum {
 
     Arrays.sort(candidates);
 
-    searchB(res, list, candidates, 0, target, 0);
+    searchB(res, list, candidates, target, 0, 0);
 
     return res;
   }
 
-  private void searchB(List<List<Integer>> res, List<Integer> list, int[] candidates, int sum, int target, int pos) {
+  private void searchB(List<List<Integer>> res, List<Integer> list, int[] candidates, int target, int sum, int pos) {
     if (sum == target) {
       res.add(new ArrayList<Integer>(list));
       return;
@@ -77,7 +77,7 @@ public class CombinationSum {
 
       if (sum + candidates[i] <= target) {
         list.add(candidates[i]);
-        searchB(res, list, candidates, sum + candidates[i], target, i);
+        searchB(res, list, candidates, target, sum + candidates[i], i);
         list.remove(list.size() - 1);
       }
     }

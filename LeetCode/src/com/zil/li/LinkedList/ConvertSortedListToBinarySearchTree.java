@@ -6,6 +6,12 @@ import com.zil.li.datastructure.TreeNode;
 /**
  * Created by youlongli on 2/15/15.
  *
+ * Note: Since in Java, everything is pass by value, for the ListNode curr, if we try to pass it, it's
+ * the pointer which we pass into the function. The problem is that for curr = curr.next, we do not
+ * change the object values the pointer points to, instead we make the pointer point to other object.
+ * Hence for recursive function, the change of the curr will not be reflected properly.... Since the pointer
+ * remains the same after we call the recursive function....
+ *
  * https://oj.leetcode.com/problems/convert-sorted-list-to-binary-search-tree/
  */
 public class ConvertSortedListToBinarySearchTree {

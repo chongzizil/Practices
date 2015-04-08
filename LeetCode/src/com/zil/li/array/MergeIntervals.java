@@ -30,19 +30,26 @@ public class MergeIntervals {
     // Do not forget the comparator.
     Collections.sort(intervals, comparator);
 
-    Interval last = intervals.get(0);
+    Interval prev = intervals.get(0);
     for (int i = 1; i < intervals.size(); i++) {
       Interval curr = intervals.get(i);
-      if (curr.start <= last.end) {
+      if (curr.start <= prev.end) {
         // Merge.
-        last.end = Math.max(curr.end, last.end);
+        prev.end = Math.max(curr.end, prev.end);
       } else {
-        res.add(last);
-        last = curr;
+        res.add(prev);
+        prev = curr;
       }
+// Another style...
+//      if (prev.end < intervals.get(i).start) {
+//        res.add(prev);
+//        prev = intervals.get(i);
+//      } else {
+//        prev.end = Math.max(prev.end, intervals.get(i).end);
+//      }
     }
 
-    res.add(last);
+    res.add(prev);
     return res;
   }
 }

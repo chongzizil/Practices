@@ -11,9 +11,37 @@ import java.util.List;
 public class PascalTriangle {
   /**
    * Time complexity: O(n)
+   * Space complexity: O(1)
+   */
+  public List<List<Integer>> generateA(int numRows) {
+    List<List<Integer>> res = new ArrayList<>();
+
+    if (numRows == 0) {
+      return res;
+    }
+
+    for (int i = 0; i < numRows; i++) {
+      for (int j = 0; j <= i; j++) {
+        if (res.size() < i + 1) {
+          List<Integer> list = new ArrayList<>();
+          res.add(list);
+        }
+        if (j == 0 || j == i) {
+          res.get(i).add(1);
+        } else {
+          res.get(i).add(res.get(i - 1).get(j - 1) + res.get(i - 1).get(j));
+        }
+      }
+    }
+
+    return res;
+  }
+
+  /**
+   * Time complexity: O(n)
    * Space complexity: O(1) (Does not count res...)
    */
-  public List<List<Integer>> generate(int numRows) {
+  public List<List<Integer>> generateB(int numRows) {
     List<List<Integer>> res = new ArrayList<List<Integer>>();
     List<Integer> prev = new ArrayList<Integer>();
 

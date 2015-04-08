@@ -9,25 +9,21 @@ import java.util.List;
  * https://leetcode.com/problems/pascals-triangle-ii/
  */
 public class PascalTriangleII {
-  public List<Integer> getRow(int rowIndex) {
-    List<Integer> prev = new ArrayList<Integer>();
+  public List<Integer> getRow(int k) {
+    List<Integer> curr = new ArrayList<>();
 
-    for (int i = 0; i <= rowIndex; i++) {
-      List<Integer> curr = new ArrayList<Integer>();
-      if (i == 0) {
-        curr.add(1);
-      } else {
-        for (int j = 0; j <= i; j++) {
-          if (j == 0 || j == i) {
-            curr.add(1);
-          } else {
-            curr.add(prev.get(j - 1) + prev.get(j));
-          }
+    for (int i = 0; i <= k; i++) {
+      List<Integer> next = new ArrayList<>();
+      for (int j = 0; j <= i; j++) {
+        if (j == 0 || j == i) {
+          next.add(1);
+        } else {
+          next.add(curr.get(j - 1) + curr.get(j));
         }
       }
-      prev = curr;
+      curr = next;
     }
 
-    return prev;
+    return curr;
   }
 }

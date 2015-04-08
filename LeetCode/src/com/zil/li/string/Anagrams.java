@@ -12,6 +12,7 @@ public class Anagrams {
    * Use Arrays.sort()
    */
   public List<String> solutionA(String[] strs) {
+    // Key: sorted str, value: anagrams
     Map<String, List<String>> map = new HashMap<String, List<String>>();
     List<String> res = new ArrayList<String>();
 
@@ -20,17 +21,15 @@ public class Anagrams {
     }
 
     for (String str : strs) {
-      char[] chars = str.toCharArray();
-      Arrays.sort(chars);
-      String sortedStr = new String(chars);
+      char[] strCharArray = str.toCharArray();
+      Arrays.sort(strCharArray);
+      String sortedStr = new String(strCharArray);
 
-      if (map.containsKey(sortedStr)) {
-        map.get(sortedStr).add(str);
-      } else {
-        List<String> list = new ArrayList<String>();
-        list.add(str);
-        map.put(sortedStr, list);
+      if (!map.containsKey(sortedStr)) {
+        map.put(sortedStr, new ArrayList<String>());
       }
+
+      map.get(sortedStr).add(str);
     }
 
     for (String key : map.keySet()) {
@@ -52,13 +51,11 @@ public class Anagrams {
     for (String str : strs) {
       String key = getHash(str);
 
-      if (map.containsKey(key)) {
-        map.get(key).add(str);
-      } else {
-        List<String> list = new ArrayList<String>();
-        list.add(str);
-        map.put(key, list);
+      if (!map.containsKey(key)) {
+        map.put(key, new ArrayList<String>());
       }
+
+      map.get(key).add(str);
     }
 
     for (String key : map.keySet()) {

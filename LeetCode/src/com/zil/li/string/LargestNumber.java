@@ -33,10 +33,9 @@ public class LargestNumber {
       sb.append(str);
     }
 
-    if (sb.charAt(0) == '0') {
-      return "0"; // Corner case for [0, 0]
+    while (sb.length() > 1 && sb.charAt(0) == '0') {
+      sb.deleteCharAt(0); // Corner case such as [0, 0], [0, 0, 0]
     }
-
     return sb.toString();
   }
 }

@@ -7,11 +7,11 @@ import com.zil.li.datastructure.TreeNode;
  */
 public class ValidateBinarySearchTree {
   private class Result {
-    boolean isValid;
+    boolean isBST;
     public int min;
     public int max;
     public Result() {
-      this.isValid = true;
+      this.isBST = true;
       this.min = Integer.MAX_VALUE;
       this.max = Integer.MIN_VALUE;
     }
@@ -19,36 +19,36 @@ public class ValidateBinarySearchTree {
 
   public boolean isValidBST(TreeNode root) {
     Result res = helper(root);
-    return res.isValid;
+    return res.isBST;
   }
 
-  private Result helper(TreeNode root) {
+  private Result helper(TreeNode node) {
     Result res = new Result();
-    if (root == null) {
+    if (node == null) {
       return res;
     }
 
-    Result left = helper(root.left);
-    Result right = helper(root.right);
+    Result left = helper(node.left);
+    Result right = helper(node.right);
 
-    if (!left.isValid || !right.isValid) {
-      res.isValid = false;
+    if (!left.isBST || !right.isBST) {
+      res.isBST = false;
       return res;
     }
 
     // NOTE: Need to check if the child is null, because the node itself might has MAX or MIN value.
-    if (root.left != null && left.max >= root.val) {
-      res.isValid = false;
+    if (node.left != null && left.max >= node.val) {
+      res.isBST = false;
       return res;
     }
 
-    if (root.right != null && right.min <= root.val) {
-      res.isValid = false;
+    if (node.right != null && right.min <= node.val) {
+      res.isBST = false;
       return res;
     }
 
-    res.min = Math.min(left.min, root.val);
-    res.max = Math.max(right.max, root.val);
+    res.max = Math.max(right.max, node.val);
+    res.min = Math.min(left.min, node.val);
 
     return res;
   }

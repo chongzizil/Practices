@@ -1,56 +1,55 @@
 package com.zil.li.BFSDFS;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by youlongli on 3/6/15.
- *
+ * <p>
  * https://oj.leetcode.com/problems/word-ladder/
  */
 public class WordLadder {
   public int ladderLength(String start, String end, Set<String> dict) {
-    if (start == null || end == null || dict == null) {
-      return 0;
-    }
+    Queue<String> queue = new LinkedList<>();
+    Set<String> found = new HashSet<>();
+    int len = 1;
 
-    Set<String> visited = new HashSet<String>(); // Remember all visit word
-    Deque<String> queue = new ArrayDeque<String>(); // For BFS
-    int len = 1; // Initial length is 1
-
-    visited.add(start);
-    queue.addLast(start);
+    queue.offer(start);
 
     while (!queue.isEmpty()) {
-      len++; // Update length first
+      len++;
       int size = queue.size();
-
       for (int i = 0; i < size; i++) {
-        String str = queue.pollFirst();
+        String word = queue.poll();
+        List<String> nextWordList = nextWords(word, dict);
 
-        for (int j = 0; j < str.length(); j++) {
-          StringBuilder sb = new StringBuilder(str); // Use StringBuilder to manipulate each character
-          for (char c = 'a'; c <= 'z'; c++) { // Try possible every character
-            sb.setCharAt(j, c);
-            String tmp = sb.toString();
-
-            if (tmp.equals(end)) { // Find the path!
-              return len;
-            }
-
-            if (visited.contains(tmp) || !dict.contains(tmp)) { // Make sure the word exists in the dict and is not visited
-              continue;
-            }
-
-            queue.addLast(sb.toString());
-            visited.add(tmp);
+        for (String nextWord : nextWordList) {
+          if (nextWord.equals(end)) {
+            return len;
           }
+
+          if (found.contains(nextWord)) {
+            continue;
+          }
+
+          queue.offer(nextWord);
+          found.add(nextWord);
         }
       }
     }
 
     return 0;
+  }
+
+  private List<String> nextWords(String word, Set<String> dict) {
+    List<String> nextWordList = new ArrayList<>();
+    for (int i = 0; i < word.length(); i++) {
+      for (char c = 'a'; c <= 'z'; c++) {
+        String next = word.substring(0, i) + c + word.substring(i + 1);
+        if (dict.contains(next)) {
+          nextWordList.add(next);
+        }
+      }
+    }
+    return nextWordList;
   }
 }

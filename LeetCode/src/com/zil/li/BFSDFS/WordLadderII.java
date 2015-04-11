@@ -91,13 +91,13 @@ public class WordLadderII {
     List<List<String>> res = new ArrayList<>();
     List<String> path = new ArrayList<>();
     // Key: word, value: list of previous words on the path
-    Map<String, List<String>> map = new HashMap<>();
-    Map<String, Integer> distance = new HashMap<>();
+    Map<String, List<String>> prevWordMap = new HashMap<>();
+    Map<String, Integer> minLength = new HashMap<>();
 
-    bfs(map, distance, start, end, dict);
+    bfs(prevWordMap, minLength, start, end, dict);
 
     path.add(end);
-    dfs(res, path, map, distance, start);
+    dfs(res, path, prevWordMap, minLength, start);
 
     return res;
   }
@@ -152,6 +152,7 @@ public class WordLadderII {
 
   private List<String> getNextWords(Set<String> dict, String word) {
     List<String> nextWords = new ArrayList<>();
+
     for (int i = 0; i < word.length(); i++) {
       for (char c = 'a'; c <= 'z'; c++) {
         String tmp = word.substring(0, i) + c + word.substring(i + 1);
@@ -160,6 +161,7 @@ public class WordLadderII {
         }
       }
     }
+
     return nextWords;
   }
 }

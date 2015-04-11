@@ -12,16 +12,16 @@ public class SetMatrixZeroes {
     int m = matrix.length;
     int n = matrix[0].length;
 
-    for (int i = 0; i < m; i++) {
-      if (matrix[i][0] == 0) {
-        firstColZero = true;
+    for (int i = 0; i < n; i++) {
+      if (matrix[0][i] == 0) {
+        firstRowZero = true;
         break;
       }
     }
 
-    for (int i = 0; i < n; i++) {
-      if (matrix[0][i] == 0) {
-        firstRowZero = true;
+    for (int i = 0; i < m; i++) {
+      if (matrix[i][0] == 0) {
+        firstColZero = true;
         break;
       }
     }

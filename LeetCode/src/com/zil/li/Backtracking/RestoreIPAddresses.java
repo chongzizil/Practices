@@ -10,48 +10,53 @@ import java.util.List;
  */
 public class RestoreIPAddresses {
   public List<String> restoreIpAddresses(String s) {
-    List<String> res = new ArrayList<String>();
-    List<String> list = new ArrayList<String>();
+    List<String> res = new ArrayList<>();
+    List<String> list = new ArrayList<>();
 
-    if (s == null || s.length() < 4 || s.length() > 12) {
+    if (s.length() < 4 || s.length() > 12) {
       return res;
     }
 
-    helper(res, list, s, 0);
+    search(res, list, s, 0);
 
     return res;
   }
 
-  private void helper(List<String> res, List<String> list, String s, int pos) {
+  private void search(List<String> res, List<String> list, String s, int pos) {
     if (list.size() == 4 && pos == s.length()) {
-      res.add(getIP(list));
+      res.add(generateIP(list));
+      return;
     }
 
-    for (int i = pos; i < s.length() && i < pos + 3; i++) {
+    if (list.size() == 4) {
+      return;
+    }
+
+    for (int i = pos; i < pos + 3 && i < s.length(); i++) {
       if (isValid(s.substring(pos, i + 1))) {
         list.add(s.substring(pos, i + 1));
-        helper(res, list, s, i + 1);
+        search(res, list, s, i + 1);
         list.remove(list.size() - 1);
       }
     }
   }
 
-  private String getIP(List<String> list) {
+  private String generateIP(List<String> list) {
     StringBuilder sb = new StringBuilder();
     for (String str : list) {
       sb.append(str);
       sb.append(".");
     }
-
     sb.setLength(sb.length() - 1);
     return sb.toString();
   }
 
   private boolean isValid(String s) {
     if (s.charAt(0) == '0') {
-      return s.equals("0"); // e.g. 011 is not valid.
+      return s.length() == 1; // e.g. 011 is not valid.
     }
+
     int num = Integer.parseInt(s);
-    return num < 256;
+    return num >= 1 && num <= 255;
   }
 }

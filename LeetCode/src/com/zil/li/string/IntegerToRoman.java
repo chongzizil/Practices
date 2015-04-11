@@ -9,8 +9,9 @@ import java.util.Map;
  * https://leetcode.com/problems/integer-to-roman/
  */
 public class IntegerToRoman {
-  private static Map<Integer, String> numToRoman = new LinkedHashMap<Integer, String>();
-  static {
+  public static String intToRoman(int num) {
+    // Key: number, Value: roman str (the key is ordered by using linkedHashMap)
+    Map<Integer, String> numToRoman = new LinkedHashMap<Integer, String>();
     numToRoman.put(1000, "M");
     numToRoman.put(900, "CM");
     numToRoman.put(500, "D");
@@ -24,14 +25,19 @@ public class IntegerToRoman {
     numToRoman.put(5, "V");
     numToRoman.put(4, "IV");
     numToRoman.put(1, "I");
-  }
 
-  public static String intToRoman(int num) {
-    for (Integer i : numToRoman.keySet()) {
-      if (num >= i) {
-        return numToRoman.get(i) + intToRoman(num - i);
+    StringBuilder sb = new StringBuilder();
+
+    while (num > 0) {
+      for (int key : numToRoman.keySet()) {
+        if (num >= key) {
+          sb.append(numToRoman.get(key));
+          num -= key;
+          break;
+        }
       }
     }
-    return "";
+
+    return sb.toString();
   }
 }

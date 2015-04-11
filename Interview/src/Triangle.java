@@ -99,7 +99,6 @@ public class Triangle {
           dp[i][j] = dp[i - 1][j] + triangle.get(i).get(j);
         } else if (j == i) { // Special case for rightmost element
           dp[i][j] = dp[i - 1][j - 1] + triangle.get(i).get(j);
-          ;
         } else { // General cases
           dp[i][j] = Math.max(dp[i - 1][j - 1], dp[i - 1][j]) + triangle.get(i).get(j);
         }

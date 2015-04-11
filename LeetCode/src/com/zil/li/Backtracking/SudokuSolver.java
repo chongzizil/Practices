@@ -35,31 +35,21 @@ public class SudokuSolver {
   }
 
   private boolean isValid(char[][] board, char num, int row, int col) {
-    int m = board.length;
-    int n = board[0].length;
-
-    // Check row (Vertical)
-    for (int i = 0; i < m; i++) {
-      if (i != row && board[i][col] == num) {
-        return false;
-      }
-    }
-
-    // Check col (horizontal)
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < 9; i++) {
+      // Row (Horizontal)
       if (i != col && board[row][i] == num) {
         return false;
       }
-    }
 
-    // Check block
-    for (int k = 0; k < 9; k++) {
-      int i = (row / 3) * 3 + k / 3; // row / 3 is the index of the block vertically, then * 3 we have the start row of that block
-      int j = (col / 3) * 3 + k % 3;
-      if (i == row && j == col) {
-        continue;
+      // Column (Vertical)
+      if (i != row && board[i][col] == num) {
+        return false;
       }
-      if (board[i][j] == num) {
+
+      // 3x3 block
+      int m = (row / 3) * 3 + i / 3;
+      int n = (col / 3) * 3 + i % 3;
+      if (m != row && n != col && board[m][n] == num) {
         return false;
       }
     }

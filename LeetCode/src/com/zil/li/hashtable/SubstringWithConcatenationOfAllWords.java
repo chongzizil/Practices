@@ -12,40 +12,44 @@ import java.util.Map;
  */
 public class SubstringWithConcatenationOfAllWords {
   public List<Integer> findSubstring(String S, String[] L) {
-    int m = L.length;
-    int n = L[0].length();
-    List<Integer> res = new ArrayList<Integer>();
-    Map<String, Integer> dict = new HashMap<String, Integer>();
-    Map<String, Integer> found = new HashMap<String, Integer>();
+    // Key: word, Value: count
+    Map<String, Integer> dict = new HashMap<>();
+    Map<String, Integer> found = new HashMap<>();
+    List<Integer> res = new ArrayList<>();
+    int num = L.length;
+    int len = L[0].length();
 
     for (String word : L) {
-      if (!dict.containsKey(word)) {
-        dict.put(word, 1);
-      } else {
+      if (dict.containsKey(word)) {
         dict.put(word, dict.get(word) + 1);
+      } else {
+        dict.put(word, 1);
       }
     }
 
-    // Note: remember to plus 1
-    for (int i = 0; i < S.length() - n * m + 1; i++) {
-      found.clear(); // Remember to clear the found map
+    for (int i = 0; i < S.length() - num * len + 1; i++) {
+      found.clear();
       int j = 0;
-      for (; j < m; j++) {
-        int k = i + j * n;
-        String tmp = S.substring(k, k + n);
-        if (!dict.containsKey(tmp)) {
+      for (;j < num; j++) {
+        int k = i + j * len;
+        String word = S.substring(k, k + len);
+
+        if (!dict.containsKey(word)) {
           break;
         }
-        if (!found.containsKey(tmp)) {
-          found.put(tmp, 1);
+
+        if (found.containsKey(word)) {
+          found.put(word, found.get(word) + 1);
         } else {
-          found.put(tmp, found.get(tmp) + 1);
+          found.put(word, 1);
         }
-        if (found.get(tmp) > dict.get(tmp)) {
+
+        if (found.get(word) > dict.get(word)) {
           break;
         }
       }
-      if (j == m) {
+
+      if (j == num) {
         res.add(i);
       }
     }

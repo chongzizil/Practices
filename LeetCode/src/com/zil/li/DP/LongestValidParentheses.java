@@ -1,7 +1,6 @@
 package com.zil.li.DP;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.Stack;
 
 /**
  * Created by youlongli on 2/26/15.
@@ -12,31 +11,31 @@ public class LongestValidParentheses {
       return 0;
     }
 
+    Stack<Integer> stack = new Stack<>();
     int sum = 0;
-    int max = 0;
-    int n = s.length();
-    Deque<Integer> stack = new ArrayDeque<Integer>();
+    int res = 0;
 
-    for (int i = 0; i < n; i++) {
-      if (s.charAt(i) == '(') {
+    for (int i = 0; i < s.length(); i++) {
+      char c = s.charAt(i);
+      if (c == '(') {
         stack.push(i);
       } else {
         if (stack.isEmpty()) {
-          // Start a new count
           sum = 0;
+          continue;
+        }
+
+        int j = stack.pop();
+
+        if (stack.isEmpty()) {
+          sum += i - j + 1;
+          res = Math.max(res, sum);
         } else {
-          int start = stack.pop();
-          if (stack.isEmpty()) {
-            // Update sum
-            sum += i - start + 1;
-            max = Math.max(max, sum);
-          } else {
-            max = Math.max(max, i - stack.peek());
-          }
+          res = Math.max(res, i - stack.peek());
         }
       }
     }
 
-    return max;
+    return res;
   }
 }

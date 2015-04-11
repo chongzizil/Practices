@@ -7,26 +7,28 @@ package com.zil.li.array;
  */
 public class TrappingRainWater {
   public int trap(int[] A) {
+    int n = A.length;
     int l = 0;
-    int r = A.length - 1;
-    int area = 0;
-    int block = 0;
+    int r = n - 1;
     int currLevel = 0;
 
+    int totalUnit = 0;
+    int blockUnit = 0;
+
     while (l <= r) {
-      int min = Math.min(A[l], A[r]);
-      if (min > currLevel) {
-        area += (min - currLevel) * (r - l + 1);
-        currLevel = min;
+      int minLevel = Math.min(A[l], A[r]);
+      if (minLevel > currLevel) {
+        totalUnit += (r - l + 1) * (minLevel - currLevel);
+        currLevel = minLevel;
       }
 
       if (A[l] < A[r]) {
-        block += A[l++];
+        blockUnit += A[l++];
       } else {
-        block += A[r--];
+        blockUnit += A[r--];
       }
     }
 
-    return area - block;
+    return totalUnit - blockUnit;
   }
 }

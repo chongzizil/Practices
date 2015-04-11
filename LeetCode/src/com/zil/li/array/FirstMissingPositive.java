@@ -14,12 +14,12 @@ public class FirstMissingPositive {
     for (int i = 0; i < n; i++) {
       // A[i] is positive and in the range (0, n]
       // Two elements need to be different before swap
-      while (A[i] > 0 && A[i] <= n && A[A[i] - 1] != A[i]) {
+      while (A[i] > 0 && A[i] <= n && A[i] != i + 1 && A[i] != A[A[i] - 1]) {
         swap(A, i, A[i] - 1);
       }
     }
 
-    for (int i = 0; i < A.length; i++) {
+    for (int i = 0; i < n; i++) {
       if (A[i] != i + 1) {
         return i + 1;
       }

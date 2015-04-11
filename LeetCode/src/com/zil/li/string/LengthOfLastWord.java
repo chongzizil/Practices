@@ -6,7 +6,21 @@ package com.zil.li.string;
  * https://leetcode.com/problems/length-of-last-word/
  */
 public class LengthOfLastWord {
-  public int lengthOfLastWord(String s) {
+  public int lengthOfLastWordA(String s) {
+    int end = s.length();
+
+    for (int i = s.length() - 1; i >= 0; i--) {
+      if (s.charAt(i) == ' ') {
+        end = i;
+      } else if (i == 0 || s.charAt(i - 1) == ' ') {
+        return end - i;
+      }
+    }
+
+    return 0;
+  }
+
+  public int lengthOfLastWordB(String s) {
     int end = s.length();
 
     for (int i = s.length() - 1; i >= 0; i--) {

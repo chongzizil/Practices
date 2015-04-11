@@ -56,4 +56,53 @@ public class WildcardMatching {
   private boolean matchChar(char c, char p) {
     return c == p || p == '?';
   }
+
+  // Memory exceeds.... Without the array, got TLE...
+  public boolean isMatchX(String s, String p) {
+    int[][] mem = new int[s.length() + 1][p.length() + 1];
+
+    for (int i = 0; i <= s.length(); i++) {
+      for (int j = 0; j <= p.length(); j++) {
+        mem[i][j] = -1;
+      }
+    }
+
+    return helper(s, p, 0, 0, mem);
+  }
+
+  private boolean helper(String s, String p, int i, int j, int[][] mem) {
+    int lenS = s.length();
+    int lenP = p.length();
+
+    if (mem[i][j] != -1) {
+      return mem[i][j] == 1;
+    }
+
+    if (j == lenP) {
+      mem[i][j] = i == lenS ? 1 : 0;
+      return mem[i][j] == 1;
+    }
+
+    mem[i][j] = 0;
+    if (p.charAt(j) == '*') {
+      for (int k = i; k < lenS; k++) {
+        if (helper(s, p, k, j + 1, mem)) {
+          mem[i][j] = 1;
+          return mem[i][j] == 1;
+        }
+      }
+
+      return false;
+    } else {
+      if (i >= lenS) {
+        return mem[i][j] == 1;
+      }
+      if (!matchChar(s.charAt(i), p.charAt(j))) {
+        return mem[i][j] == 1;
+      }
+
+      mem[i][j] = helper(s, p, i + 1, j + 1, mem) ? 1 : 0;
+      return mem[i][j] == 1;
+    }
+  }
 }

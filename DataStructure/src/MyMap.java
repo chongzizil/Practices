@@ -22,39 +22,32 @@ public class MyMap<K, V> {
   }
 
   public void put(K key, V value) {
-    int hash = key.hashCode();
-    int index = hash % table.length;
-    if (table[index] == null) {
-      Node<K, V> newNode = new Node<>(key, value);
-      table[index] = newNode;
-    } else {
-      Node<K, V> node = table[index];
-      while(!node.key.equals(key) && node.next != null) {
-        node = node.next;
-      }
-      if (node.key.equals(key)) {
+    int index = hash(key);
+
+    for (Node<K, V> node = table[index]; node != null; node = node.next) {
+      if (key.equals(node.key)) {
         node.value = value;
-      } else {
-        Node<K, V> newNode = new Node<>(key, value);
-        node.next = newNode;
+        return;
       }
     }
+
+    Node<K, V> newNode = new Node<>(key, value);
+    newNode.next = table[index];
+    table[index] = newNode;
   }
 
   public V get(K key) {
-    int hash = key.hashCode();
-    int index = hash % table.length;
-    if (table[index] != null) {
-      Node<K, V> node = table[index];
-      while (node != null) {
-        if (node.key.equals(key)) {
-          return node.value;
-        } else {
-          node = node.next;
-        }
-      }
+    int index = hash(key);
+
+    for (Node<K, V> node = table[index]; node != null; node = node.next) {
+      if (node.key.equals(key)) return node.value;
     }
+
     return null;
+  }
+
+  private int hash(K key) {
+    return (key.hashCode() & 0x7fffffff) % table.length;
   }
 
   public boolean containsKey(K key) {

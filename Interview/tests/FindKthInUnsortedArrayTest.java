@@ -21,4 +21,18 @@ public class FindKthInUnsortedArrayTest {
     assertEquals(555, test.solutionA(num, 555));
     assertEquals(995, test.solutionA(num, 995));
   }
+
+  @Test
+  public void testSolutionB() throws Exception {
+    List<Integer> num = new ArrayList<>();
+    for (int i = 1; i <= 1000; i++) {
+      num.add(i);
+    }
+
+    assertEquals(5, test.solutionB(num, 5));
+    assertEquals(15, test.solutionB(num, 15));
+    assertEquals(115, test.solutionB(num, 115));
+    assertEquals(555, test.solutionB(num, 555));
+    assertEquals(995, test.solutionB(num, 995));
+  }
 }

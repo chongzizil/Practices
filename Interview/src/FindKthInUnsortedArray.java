@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by youlongli on 4/11/15.
@@ -10,6 +8,11 @@ import java.util.Random;
  * Assume no duplicates.
  */
 public class FindKthInUnsortedArray {
+  /**
+   * Use quick select (quick sort).
+   * Time: O(n) (?)
+   * Space: O(n) (Can be improved)
+   */
   public int solutionA(List<Integer> num, int k) {
     return quickSelect(num, k);
   }
@@ -35,5 +38,26 @@ public class FindKthInUnsortedArray {
     } else {
       return num.get(pivot);
     }
+  }
+
+  /**
+   * Use priority queue.
+   * Time: nlogk
+   * Space: logk
+   */
+  public int solutionB(List<Integer> num, int k) {
+    // Note: Priority queue will increment the capacity, this code is buggy!!!
+    // Add a self implement heap will do the job :)
+    PriorityQueue<Integer> pq = new PriorityQueue<>(k, new Comparator<Integer>() {
+      @Override
+      public int compare(Integer o1, Integer o2) {
+        return o2.compareTo(o1);
+      }
+    });
+    for (int i : num) {
+      pq.offer(i);
+    }
+
+    return pq.poll();
   }
 }

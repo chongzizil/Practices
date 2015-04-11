@@ -1,14 +1,16 @@
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class TrieNodeTest {
-  TrieNode trie;
+public class TrieTest {
+  Trie trie;
   String[] dict;
+
   @Before
   public void setUp() throws Exception {
-    trie = new TrieNode();
+    trie = new Trie();
     dict = new String[]{"google", "goo", "yahoo", "facebook", "LinkedIn", "Amazon"}; // :)
     for (String word : dict) {
       trie.add(word.toLowerCase());

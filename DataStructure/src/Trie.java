@@ -5,23 +5,38 @@ import java.util.Collection;
  *
  * This is a simple implementation of trie without error check and exception handling.
  */
-public class TrieNode {
-  public int numChildren = 0;
-  public boolean isWord = false;
+public class Trie {
+  class TrieNode {
+    private int numChildren = 0;
+    private boolean isWord = false;
 
-  private TrieNode[] children = new TrieNode[26];
+    private TrieNode[] children;
 
-  public TrieNode() {
+    public TrieNode() {
+      this.numChildren = 0;
+      this.isWord = false;
+      this.children = new TrieNode[26];
+    }
   }
 
-  public TrieNode(Collection<String> words) {
+  private TrieNode root;
+
+  public Trie() {
+    root = new TrieNode();
+  }
+
+  public Trie(Collection<String> words) {
+    addAll(words);
+  }
+
+  public void addAll(Collection<String> words) {
     for (String word : words) {
       add(word);
     }
   }
 
-  public boolean add(String s) {
-    TrieNode curr = this;
+  public void add(String s) {
+    TrieNode curr = root;
 
     for (int i = 0; i < s.length(); i++) {
       char c = s.charAt(i);
@@ -33,21 +48,11 @@ public class TrieNode {
       curr = curr.children[index];
     }
 
-    if (curr.isWord) {
-      return false;
-    } else {
-      curr.isWord = true;
-      return true;
-    }
+    curr.isWord = true;
   }
 
-  public TrieNode getNextNode(char c) {
-    int index = c - 'a';
-    return children[index];
-  }
-
-  public TrieNode getNode(String s) {
-    TrieNode curr = this;
+  private TrieNode getNode(String s) {
+    TrieNode curr = root;
     for (int i = 0; i < s.length(); i++) {
       int index = s.charAt(i) - 'a';
       curr = curr.children[index];

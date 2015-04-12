@@ -15,9 +15,8 @@ public class PalindromePartitioningII {
     minCut[0] = -1;
     for (int l = 1; l <= n; l++) {
       minCut[l] = l - 1;
-      for (int i = 0; i <= l - 1; i++) {
-        int j = l - 1;
-        if (isPalindrome[i][j]) {
+      for (int i = 0; i < l; i++) {
+        if (isPalindrome[i][l - 1]) {
           minCut[l] = Math.min(minCut[l], minCut[i] + 1);
         }
       }

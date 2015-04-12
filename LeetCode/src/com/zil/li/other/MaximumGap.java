@@ -13,6 +13,7 @@ public class MaximumGap {
     int max;
 
     public Bucket() {
+      // Since all elements are non-negative, initialize to -1 will not be confusing or ambiguous.
       min = -1;
       max = -1;
     }

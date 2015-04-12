@@ -1,5 +1,3 @@
-package datastructure;
-
 import java.util.Stack;
 
 /**

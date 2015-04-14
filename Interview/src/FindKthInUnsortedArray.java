@@ -13,31 +13,43 @@ public class FindKthInUnsortedArray {
    * Time: O(n) (?)
    * Space: O(n) (Can be improved)
    */
-  public int solutionA(List<Integer> num, int k) {
-    return quickSelect(num, k);
+  public int solutionA(int[] num, int k) {
+    return quickSelect(num, 0, num.length - 1, k);
   }
 
-  private int quickSelect(List<Integer> num, int k) {
-    List<Integer> left = new ArrayList<>();
-    List<Integer> right = new ArrayList<>();
-    Random rd = new Random();
-    int pivot = rd.nextInt(1) * num.size();
+  private int quickSelect(int[] num, int l, int r, int k) {
+    int leftEnd = partition(num, l, r);
+    int leftNum = leftEnd - l + 1;
 
-    for (int i = 0; i < num.size(); i++) {
-      if (num.get(i) < num.get(pivot)) {
-        left.add(num.get(i));
-      } else if (num.get(i) > num.get(pivot)) {
-        right.add(num.get(i));
-      }
-    }
-
-    if (k <= left.size()) {
-      return quickSelect(left, k);
-    } else if (k > num.size() - right.size()) {
-      return quickSelect(right, k - (num.size() - right.size()));
+    if (k < leftNum) {
+      return quickSelect(num, l, leftEnd, k);
+    } else if (k > leftNum) {
+      return quickSelect(num, leftEnd + 1, r, k - leftNum);
     } else {
-      return num.get(pivot);
+      return num[leftEnd];
     }
+  }
+
+  // Return the end of the left part.
+  private int partition(int[] num, int l, int r) {
+    Random rd = new Random();
+    int pivot = rd.nextInt(r - l + 1) + l;
+
+    while (true) {
+      while (l < r && num[l] < num[pivot]) l++;
+      while (l < r && num[r] > num[pivot]) r--;
+      if (l > r) break;
+      swap(num, l, r);
+      l++; r--;
+    }
+
+    return l - 1;
+  }
+
+  private void swap(int[] num, int i, int j) {
+    int tmp = num[i];
+    num[i] = num[j];
+    num[j] = tmp;
   }
 
   /**
@@ -45,7 +57,7 @@ public class FindKthInUnsortedArray {
    * Time: nlogk
    * Space: logk
    */
-  public int solutionB(List<Integer> num, int k) {
+  public int solutionB(int[] num, int k) {
     // Note: Priority queue will increment the capacity, this code is buggy!!!
     // Add a self implement heap will do the job :)
     PriorityQueue<Integer> pq = new PriorityQueue<>(k, new Comparator<Integer>() {

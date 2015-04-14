@@ -18,9 +18,7 @@ public class TwoStackQueue<T> {
 
   public T pop() {
     if (stack2.isEmpty()) {
-      while (!stack1.isEmpty()) {
-        stack2.push(stack1.pop());
-      }
+      transfer();
     }
 
     return stack2.pop();
@@ -28,11 +26,15 @@ public class TwoStackQueue<T> {
 
   public T peek() {
     if (stack2.isEmpty()) {
-      while (!stack1.isEmpty()) {
-        stack2.push(stack1.pop());
-      }
+      transfer();
     }
 
     return stack2.peek();
+  }
+
+  private void transfer() {
+    while (!stack1.isEmpty()) {
+      stack2.push(stack1.pop());
+    }
   }
 }

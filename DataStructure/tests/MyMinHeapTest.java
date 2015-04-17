@@ -9,7 +9,7 @@ public class MyMinHeapTest {
   public void smallTest() throws Exception {
     MyMinHeap<Integer> minHeap = new MyMinHeap<>();
     for (int i = 1; i <= 32; i++) {
-      minHeap.add(i);
+      minHeap.offer(i);
     }
 
     for (int i = 1; i <= 32; i++) {
@@ -23,10 +23,10 @@ public class MyMinHeapTest {
     MyMinHeap<Integer> minHeap = new MyMinHeap<>();
     Random rd = new Random();
 
-    for (int i = 0; i < 10000; i++) {
+    for (int i = 0; i < 100000; i++) {
       int num = rd.nextInt(10000);
       nums.add(num);
-      minHeap.add(num);
+      minHeap.offer(num);
     }
 
     Collections.sort(nums);

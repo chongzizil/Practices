@@ -2,71 +2,92 @@
  * Created by youlongli on 4/8/15.
  */
 public class MyMap<K, V> {
-  class Node<K, V> {
+  private class Entry<K, V> {
     K key;
     V value;
-    Node<K, V> next;
+    Entry<K, V> next;
 
-    public Node(K key, V value) {
+    public Entry(K key, V value) {
       this.key = key;
       this.value = value;
     }
   }
 
-  Node<K, V>[] table;
-  int size;
+  private Entry<K, V>[] table;
+  private int size;
+  private double loadFactor;
 
   public MyMap() {
-    table = new Node[4];
+    table = new Entry[4];
     size = 0;
+    loadFactor = 0.75;
   }
 
-  public void put(K key, V value) {
-    int index = hash(key);
+  public boolean put(K key, V value) {
+    if (key == null) {
+      return false;
+    }
 
-    for (Node<K, V> node = table[index]; node != null; node = node.next) {
-      if (key.equals(node.key)) {
-        node.value = value;
+    if ((double)size / (double)table.length > loadFactor) {
+      resize();
+    }
+
+    int index = hash(key) % table.length;
+    put(table, index, key, value);
+    size++;
+    return true;
+  }
+
+  private void put(Entry<K, V>[] currTable, int index, K key, V value) {
+    for (Entry<K, V> entry = currTable[index]; entry != null; entry = entry.next) {
+      if (entry.key.equals(key)) {
+        entry.value = value;
         return;
       }
     }
-
-    Node<K, V> newNode = new Node<>(key, value);
-    newNode.next = table[index];
-    table[index] = newNode;
+    Entry<K, V> newEntry = new Entry<>(key, value);
+    newEntry.next = currTable[index];
+    currTable[index] = newEntry;
   }
 
   public V get(K key) {
-    int index = hash(key);
-
-    for (Node<K, V> node = table[index]; node != null; node = node.next) {
-      if (node.key.equals(key)) return node.value;
+    int index = hash(key) % table.length;
+    for (Entry<K, V> entry = table[index]; entry != null; entry = entry.next) {
+      if (entry.key.equals(key)) {
+        return entry.value;
+      }
     }
-
     return null;
   }
 
-  private int hash(K key) {
-    return (key.hashCode() & 0x7fffffff) % table.length;
-  }
-
   public boolean containsKey(K key) {
-    int hash = key.hashCode();
-    int index = hash % table.length;
-    if (table[index] != null) {
-      Node<K, V> node = table[index];
-      while (node != null) {
-        if (node.key.equals(key)) {
-          return true;
-        } else {
-          node = node.next;
-        }
+    int index = hash(key) % table.length;
+    for (Entry<K, V> entry = table[index]; entry != null; entry = entry.next) {
+      if (entry.key.equals(key)) {
+        return true;
       }
     }
     return false;
   }
 
-  public boolean isEmpty() {
-    return size == 0;
+  public void resize() {
+    size = 0;
+    Entry<K, V>[] newTable = new Entry[table.length * 2];
+    for (Entry<K, V> entry : table) {
+      for (; entry != null; entry = entry.next) {
+        int index = hash(entry.key) % newTable.length;
+        put(newTable, index, entry.key, entry.value);
+        size++;
+      }
+    }
+    table = newTable;
+  }
+
+  public int size() {
+    return size;
+  }
+
+  public int hash(K key) {
+    return key.hashCode() & 0x7fffffff;
   }
 }

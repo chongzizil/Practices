@@ -4,16 +4,16 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class TrieTest {
-  Trie trie;
+public class MyTrieTest {
+  MyTrie trie;
   String[] dict;
 
   @Before
   public void setUp() throws Exception {
-    trie = new Trie();
+    trie = new MyTrie();
     dict = new String[]{"google", "goo", "yahoo", "facebook", "LinkedIn", "Amazon"}; // :)
     for (String word : dict) {
-      trie.add(word.toLowerCase());
+      trie.add(word);
     }
   }
 
@@ -23,8 +23,8 @@ public class TrieTest {
     assertEquals(true, trie.contains("goo"));
     assertEquals(true, trie.contains("yahoo"));
     assertEquals(true, trie.contains("facebook"));
-    assertEquals(true, trie.contains("LinkedIn".toLowerCase()));
-    assertEquals(true, trie.contains("Amazon".toLowerCase()));
+    assertEquals(true, trie.contains("LinkedIn"));
+    assertEquals(true, trie.contains("Amazon"));
   }
 
   @Test

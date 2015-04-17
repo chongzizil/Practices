@@ -4,32 +4,48 @@
  * Pro: Every operation takes constant time in the worst case.
  * Con: Use extra time and space to deal with the links.
  */
-public class MyListStack<T> {
-  private class Node<T> {
-    T item;
+public class MyListStack<E> {
+  private class Node {
+    E elem;
     Node next;
+
+    public Node(E elem) {
+      this.elem = elem;
+    }
   }
 
-  private Node<T> first = null;
+  private Node head;
+  int size;
 
-  public void push(T item) {
-    Node<T> oldFirst = first;
-    first = new Node<T>();
-    first.item = item;
-    first.next = oldFirst;
+  public MyListStack() {
+    this.head = null;
+    size = 0;
   }
 
-  public T pop() {
-    T item = first.item;
-    first = first.next;
-    return item;
+  public void push(E elem) {
+    Node node = new Node(elem);
+    Node oldHead = head;
+    head = node;
+    node.next = oldHead;
+    size++;
   }
 
-  public T peek() {
-    return first.item;
+  public E pop() {
+    E rst = head.elem;
+    head = head.next;
+    size--;
+    return rst;
+  }
+
+  public E peek() {
+    return head.elem;
   }
 
   public boolean isEmpty() {
-    return first == null;
+    return head == null;
+  }
+
+  public int size() {
+    return size;
   }
 }

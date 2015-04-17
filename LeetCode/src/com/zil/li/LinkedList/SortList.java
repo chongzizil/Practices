@@ -49,11 +49,16 @@ public class SortList {
       curr = curr.next;
     }
 
-    if (left != null) {
+    while (left != null) {
       curr.next = left;
+      left = left.next;
+      curr = curr.next;
     }
-    if (right != null) {
+
+    while (right != null) {
       curr.next = right;
+      right = right.next;
+      curr = curr.next;
     }
 
     return dummy.next;

@@ -4,55 +4,49 @@ import java.util.Comparator;
 /**
  * Created by youlongli on 3/1/15.
  */
-public class MyMinHeap<Key extends Comparable<Key>> {
-  private Key[] array;
-  private int N;
+public class MyMinHeap<E extends Comparable<E>> {
+  private E[] tree;
+  private int size;
 
   public MyMinHeap() {
-    array = (Key[]) Array.newInstance(Comparable.class, 4);
-    N = 0; // No element in index 0.
+    tree = (E[]) Array.newInstance(Comparable.class, 16);
   }
 
-  public void add(Key num) {
+  public void offer(E elem) {
     if (isFull()) {
-      resize(array.length * 2);
+      resize(tree.length * 2);
     }
 
-    array[++N] = num;
-    int pos = N;
-    while(pos > 1 && array[pos / 2].compareTo(array[pos]) == 1) {
-      swap(pos / 2, pos);
-      pos = pos / 2;
-    }
+    tree[++size] = elem;
+    swim(size);
   }
 
-  public Key poll() {
-    Key res = array[1];;
-    array[1] = array[N--];
+  public E poll() {
+    E rst = tree[1];
+    tree[1] = tree[size];
+    tree[size--] = null;
     heapify(1);
-    return res;
+    return rst;
   }
 
-  public boolean isEmpty() {
-    return N == 0;
+  public E peek() {
+    return tree[1];
   }
 
   private void swim(int pos) {
-    while (pos != 1 && less(pos, pos / 2)) {
+    while (pos != 1 && tree[pos].compareTo(tree[pos / 2]) < 0) {
       swap(pos, pos / 2);
       pos = pos / 2;
     }
   }
 
   private void heapify(int pos) {
-    int left = pos * 2;
-    int right = pos * 2 + 1;
     int min = pos;
-    if (left <= N && less(left, min)) {
-      min = left;
+    if (pos * 2 <= size && tree[min].compareTo(tree[pos * 2]) > 0) {
+      min = pos * 2;
     }
-    if (right <= N && less(right, min)) {
-      min = right;
+    if (pos * 2 + 1<= size && tree[min].compareTo(tree[pos * 2 + 1]) > 0) {
+      min = pos * 2 + 1;
     }
     if (min != pos) {
       swap(pos, min);
@@ -60,25 +54,29 @@ public class MyMinHeap<Key extends Comparable<Key>> {
     }
   }
 
-  private boolean less(int p, int q) {
-    return array[p].compareTo(array[q]) < 0;
-  }
-
   private void resize(int size) {
-    Key[] newArray = (Key[]) Array.newInstance(Comparable.class, size);
-    for (int i = 0; i <= N; i++) {
-      newArray[i] = array[i];
+    E[] newTree = (E[]) Array.newInstance(Comparable.class, size);
+    for (int i = 0; i < tree.length; i++) {
+      newTree[i] = tree[i];
     }
-    array = newArray;
-  }
-
-  private boolean isFull() {
-    return N == array.length - 1;
+    tree = newTree;
   }
 
   private void swap(int i, int j) {
-    Key tmp = array[i];
-    array[i] = array[j];
-    array[j] = tmp;
+    E tmp = tree[i];
+    tree[i] = tree[j];
+    tree[j] = tmp;
+  }
+
+  private boolean isFull() {
+    return size == tree.length - 1;
+  }
+
+  public int getSize() {
+    return size;
+  }
+
+  public boolean isEmpty() {
+    return size == 0;
   }
 }

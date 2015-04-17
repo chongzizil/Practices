@@ -91,6 +91,7 @@ public class FourSum {
 
   private void kSumHelper(List<List<Integer>> res, List<Integer> list, int[] num, int target, int pos, int k) {
     int curr = list.size();
+    // Lack of the corner case for k == 1 which is trivial though...
     if (list.size() == k - 2) {
       int l = pos;
       int r = num.length - 1;

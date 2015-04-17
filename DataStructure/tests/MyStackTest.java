@@ -1,34 +1,59 @@
 import org.junit.Test;
 
+import java.util.Random;
+import java.util.Stack;
+
 import static org.junit.Assert.*;
 
 public class MyStackTest {
 
   @Test
   public void testArrayStack() throws Exception {
-    MyArrayStack<Integer> stack = new MyArrayStack<>();
-    stack.push(10);
-    stack.push(20);
-    stack.push(30);
-    stack.push(40);
-    assertEquals(40, (int) stack.pop());
-    assertEquals(30, (int) stack.pop());
-    assertEquals(20, (int) stack.pop());
-    assertEquals(10, (int) stack.pop());
-    assertEquals(true, stack.isEmpty());
+    MyArrayStack<Integer> myStack = new MyArrayStack<>();
+    Stack<Integer> stack = new Stack<>();
+
+    for (int i = 0; i < 100000; i++) {
+      stack.push(i);
+      myStack.push(i);
+    }
+
+    assertEquals(100000, myStack.size());
+
+    while (!myStack.isEmpty()) {
+      assertEquals(stack.pop(), myStack.pop());
+    }
+
+    // Test for shrink...
+    for (int i = 0; i < 100000; i++) {
+      stack.push(i);
+      myStack.push(i);
+    }
+
+    assertEquals(100000, myStack.size());
+
+    while (!myStack.isEmpty()) {
+      assertEquals(stack.pop(), myStack.pop());
+    }
+
+    assertEquals(true, myStack.isEmpty());
   }
 
   @Test
   public void testListArray() throws Exception {
-    MyListStack<Integer> stack = new MyListStack<>();
-    stack.push(10);
-    stack.push(20);
-    stack.push(30);
-    stack.push(40);
-    assertEquals(40, (int) stack.pop());
-    assertEquals(30, (int) stack.pop());
-    assertEquals(20, (int) stack.pop());
-    assertEquals(10, (int) stack.pop());
-    assertEquals(true, stack.isEmpty());
+    MyListStack<Integer> myStack = new MyListStack<>();
+    Stack<Integer> stack = new Stack<>();
+
+    for (int i = 0; i < 100000; i++) {
+      stack.push(i);
+      myStack.push(i);
+    }
+
+    assertEquals(100000, myStack.size());
+
+    while (!myStack.isEmpty()) {
+      assertEquals(stack.pop(), myStack.pop());
+    }
+
+    assertEquals(true, myStack.isEmpty());
   }
 }
